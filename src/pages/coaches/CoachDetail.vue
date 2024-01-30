@@ -6,12 +6,7 @@
 </template>
 
 <script >
-import AutoComplete from 'primevue/autocomplete';
-
 export default {
-    components: {
-        AutoComplete
 
-    }
 }
 </script>
