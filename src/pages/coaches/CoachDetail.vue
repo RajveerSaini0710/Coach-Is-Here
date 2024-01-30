@@ -1,4 +1,3 @@
-
 <template>
     <div class="card flex justify-center">
         <h1>Coach Detail</h1>
