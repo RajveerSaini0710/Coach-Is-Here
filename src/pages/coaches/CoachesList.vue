@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div>Filters</div>
+        <div>FILTERS</div>
         <div>Coach List</div>
     </section>
 </template>
