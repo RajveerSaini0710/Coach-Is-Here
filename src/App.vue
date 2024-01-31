@@ -1,15 +1,15 @@
 <template>
-    <TheHeader></TheHeader>
-    <router-view></router-view>
+	<TheHeader></TheHeader>
+	<router-view></router-view>
 </template>
 
 <script>
 import TheHeader from '../src/components/layout/TheHeader.vue'
 
 export default {
-    components: {
-        TheHeader,
-    },
+	components: {
+		TheHeader,
+	},
 }
 </script>
 
@@ -17,18 +17,18 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&display=swap');
 
 @font-face {
-    font-family: 'M PLUS 1p';
-    src: url('../assets/fonts/MPLUS1p-Regular.ttf');
+	font-family: 'M PLUS 1p';
+	src: url('../assets/fonts/MPLUS1p-Regular.ttf');
 }
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-    font-family: 'M PLUS 1p', sans-serif;
-    font-size: 18px;
+	font-family: 'M PLUS 1p', sans-serif;
+	font-size: 18px;
 }
 body {
-    margin: 0;
+	margin: 0;
 }
 </style>
