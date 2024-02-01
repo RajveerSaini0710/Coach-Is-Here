@@ -6,7 +6,14 @@ import Lara from '@/presets/lara'
 import router from './router.js'
 import store from '../src/stores/store.js'
 
+//Global  components
+import BaseCard from '../src/components/ui/BaseCard.vue'
+import BaseButton from '../src/components/ui/BaseButton.vue'
+
 const app = createApp(App)
+
+app.component('BaseCard', BaseCard)
+app.component('BaseButton', BaseButton)
 
 app.use(store)
 app.use(router)

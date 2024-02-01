@@ -1,5 +1,5 @@
 <template>
-	<div class="card flex justify-center flex-wrap gap-3">
+	<div class="inline-block" v-if="!link && !normalButton && primeVueButton">
 		<Button
 			:label="label"
 			:raised="raised"
@@ -11,7 +11,24 @@
 			:size="size"
 			:severity="severity"
 			:badgeClass="badgeClass"
+			:loading="loading"
+			class="py-3 px-6 bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
 		/>
+	</div>
+	<div v-else-if="!link && !primeVueButton && normalButton">
+		<button
+			class="py-3 px-6 bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
+		>
+			<slot></slot>
+		</button>
+	</div>
+	<div v-else>
+		<router-link
+			class="py-3 px-6 bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
+			:to="to"
+		>
+			<slot></slot>
+		</router-link>
 	</div>
 </template>
 
@@ -24,12 +41,17 @@ export default {
 		raised: { type: Boolean, default: false },
 		text: { type: Boolean, default: false },
 		outlined: { type: Boolean, default: true },
+		loading: { type: Boolean, default: false },
 		icon: { type: String },
 		label: { type: String },
 		badge: { type: String },
 		size: { type: String },
 		severity: { type: String },
 		badgeClass: { type: String },
+		link: { type: Boolean, default: false },
+		to: { type: String, default: '/' },
+		normalButton: { type: Boolean, default: false },
+		primeVueButton: { type: Boolean, default: false },
 	},
 	components: {
 		Button,

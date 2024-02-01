@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&display=swap'); */
 
 @font-face {
 	font-family: 'M PLUS 1p';
