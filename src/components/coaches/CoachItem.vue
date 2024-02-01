@@ -6,7 +6,7 @@
 			<span v-for="area in areas" :key="area">{{ area }}</span>
 		</div>
 		<div class="flex justify-end my-2">
-			<BaseButton link :to="coachContactLink">Contact</BaseButton>
+			<BaseButton outlinedLink :to="coachContactLink">Contact</BaseButton>
 			<BaseButton link :to="coachDetailLink">View Details</BaseButton>
 		</div>
 	</li>
