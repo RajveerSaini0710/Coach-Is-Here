@@ -9,11 +9,13 @@ import store from '../src/stores/store.js'
 //Global  components
 import BaseCard from '../src/components/ui/BaseCard.vue'
 import BaseButton from '../src/components/ui/BaseButton.vue'
+import BaseBadge from '../src/components/ui/BaseBadge.vue'
 
 const app = createApp(App)
 
 app.component('BaseCard', BaseCard)
 app.component('BaseButton', BaseButton)
+app.component('BaseBadge', BaseBadge)
 
 app.use(store)
 app.use(router)

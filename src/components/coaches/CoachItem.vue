@@ -2,8 +2,8 @@
 	<li class="my-4 border border-solid border-gray-700 rounded-xl p-4">
 		<h3 class="my-2 text-2xl font-semibold">{{ fullName }}</h3>
 		<h4 class="my-2">${{ rate }}/hour</h4>
-		<div class="my-2">
-			<span v-for="area in areas" :key="area">{{ area }}</span>
+		<div class="my-2 flex gap-1">
+			<BaseBadge v-for="(area, index) in areas" :key="index" :label="area" :type="area" />
 		</div>
 		<div class="flex justify-end my-2">
 			<BaseButton outlinedLink :to="coachContactLink">Contact</BaseButton>
