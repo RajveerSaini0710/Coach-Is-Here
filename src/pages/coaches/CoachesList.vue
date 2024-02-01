@@ -2,7 +2,7 @@
 	<section class="flex justify-center">
 		<BaseCard>
 			<div class="flex">
-				<BaseButton normalButton> Refresh </BaseButton>
+				<BaseButton primeVueButton outlined label="Refresh"> </BaseButton>
 				<BaseButton link to="/register">Register As Coach</BaseButton>
 			</div>
 			<ul v-if="hasCoaches">

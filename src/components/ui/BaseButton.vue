@@ -3,7 +3,6 @@
 		<Button
 			:label="label"
 			:raised="raised"
-			:text="text"
 			:outlined="outlined"
 			:icon="icon"
 			:badge="badge"
@@ -12,7 +11,7 @@
 			:severity="severity"
 			:badgeClass="badgeClass"
 			:loading="loading"
-			class="py-3 px-6 bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
+			class="text-purple-800 py-3 px-6 rounded-3xl mr-2 border-purple-600 hover:bg-purple-50 active:bg-purple-50"
 		/>
 	</div>
 	<div v-else-if="!link && !primeVueButton && normalButton">
@@ -39,7 +38,6 @@ export default {
 	props: {
 		disabled: { type: Boolean, default: false },
 		raised: { type: Boolean, default: false },
-		text: { type: Boolean, default: false },
 		outlined: { type: Boolean, default: true },
 		loading: { type: Boolean, default: false },
 		icon: { type: String },
