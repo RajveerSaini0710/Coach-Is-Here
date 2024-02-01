@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<div>
-			<BaseButton type="button" label="Emails" size="small" badge="8" badgeClass="text-black" outlined />
+			<BaseButton type="button" label="Emails" size="small" badge="8" badgeClass="bg-blue-500" outlined />
 			<router-link to="/register">Register As Coach</router-link>
 		</div>
 		<ul v-if="hasCoaches">

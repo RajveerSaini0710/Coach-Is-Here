@@ -17,7 +17,6 @@
 
 <script>
 import Button from 'primevue/button'
-import Badge from 'primevue/badge'
 
 export default {
 	props: {
