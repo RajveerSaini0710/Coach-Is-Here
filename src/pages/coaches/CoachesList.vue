@@ -1,5 +1,8 @@
 <template>
 	<section class="flex justify-center">
+		<CoachFilter />
+	</section>
+	<section class="flex justify-center">
 		<BaseCard>
 			<div class="flex">
 				<BaseButton primeVueButton outlined label="Refresh" class="flex-grow"> </BaseButton>
@@ -22,11 +25,13 @@
 </template>
 
 <script>
+import CoachFilter from '../../components/coaches/CoachFilter.vue'
 import CoachItem from '../../components/coaches/CoachItem.vue'
 
 export default {
 	components: {
 		CoachItem,
+		CoachFilter,
 	},
 
 	computed: {
