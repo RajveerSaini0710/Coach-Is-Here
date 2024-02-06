@@ -1,6 +1,6 @@
 <template>
 	<section class="flex justify-center">
-		<CoachFilter />
+		<CoachFilter @change-filter="setFilter" />
 	</section>
 	<section class="flex justify-center">
 		<BaseCard>
@@ -36,7 +36,14 @@ export default {
 
 	computed: {
 		filteredCoaches() {
-			return this.$store.getters.coaches
+			const coaches = this.$store.getters.coaches
+			return coaches.filter((coach) => {
+				return (
+					(this.activeFilter.Frontend && coach.areas.includes('frontend')) ||
+					(this.activeFilter.Backend && coach.areas.includes('backend')) ||
+					(this.activeFilter.Career && coach.areas.includes('career'))
+				)
+			})
 		},
 		hasCoaches() {
 			return this.$store.getters.hasCoaches
@@ -44,8 +51,22 @@ export default {
 	},
 	data() {
 		return {
-			loading: false,
+			activeFilter: {
+				Frontend: true,
+				Backend: true,
+				Career: true,
+			},
 		}
+	},
+	methods: {
+		setFilter(updateFilter) {
+			const newFilter = {
+				Frontend: updateFilter.includes('Frontend'),
+				Backend: updateFilter.includes('Backend'),
+				Career: updateFilter.includes('Career'),
+			}
+			this.activeFilter = newFilter
+		},
 	},
 }
 </script>

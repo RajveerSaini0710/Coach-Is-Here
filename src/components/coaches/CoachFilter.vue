@@ -2,11 +2,12 @@
 	<BaseCard>
 		<h2 class="mb-2 text-purple-600 font-semibold indent-4">Find Your Coach</h2>
 		<div class="flex">
-			<div v-for="expert of expertise" :key="expert.id" class="text-purple-700 py-2 ml-4">
+			<div v-for="expert of expertise" :key="expert" class="text-purple-700 py-2 ml-4">
 				<Checkbox v-model="filters" :id="expert.id" :value="expert.name" class="mr-2" name="Expertise" @change="setFilter" />
-				<label :for="expert.id">{{ expert.name }}</label>
+				<label :for="expert.id"> {{ expert.name }} </label>
 			</div>
 		</div>
+		{{ filters }}
 	</BaseCard>
 </template>
 
@@ -14,6 +15,7 @@
 import Checkbox from 'primevue/checkbox'
 
 export default {
+	emits: ['change-filter'],
 	components: {
 		Checkbox,
 	},
@@ -30,9 +32,14 @@ export default {
 	methods: {
 		setFilter(event) {
 			const inputId = event.target.value
-			const isActive = event.target.checked
-			console.log('id', inputId)
-			console.log('active', isActive)
+			const updateFilter = this.filters.map((filter) => {
+				if (filter === inputId) {
+					return filter
+				}
+				return filter
+			})
+			this.filters = updateFilter
+			this.$emit('change-filter', updateFilter)
 		},
 	},
 }
