@@ -7,7 +7,6 @@
 				<label :for="expert.id"> {{ expert.name }} </label>
 			</div>
 		</div>
-		{{ filters }}
 	</BaseCard>
 </template>
 
