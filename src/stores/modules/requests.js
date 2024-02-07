@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const requestModule = {
 	state() {
 		return {
@@ -6,20 +8,52 @@ const requestModule = {
 	},
 	mutations: {
 		addRequest(state, payload) {
-			console.log(payload)
 			return state.requests.push(payload)
+		},
+		setRequest(state, payload) {
+			state.requests = payload
 		},
 	},
 	actions: {
-		addRequest(context, payload) {
+		async addRequest(context, payload) {
 			const newRequest = {
-				id: new Date().toISOString(),
-				coachId: payload.coachId,
 				userEmail: payload.email,
 				message: payload.message,
 			}
-
-			context.commit('addRequest', newRequest)
+			try {
+				const res = await axios.post(
+					`https://saini-lifters-default-rtdb.firebaseio.com/requests/${payload.coachId}.json`,
+					newRequest
+				)
+				const Id = res.data.name
+				newRequest.id = Id
+				newRequest.coachId = payload.coachId
+				context.commit('addRequest', newRequest)
+			} catch (error) {
+				console.error('Error adding request:', error)
+			}
+		},
+		async fetchRequest(context) {
+			const coachId = context.rootGetters.userId
+			await axios
+				.get(`https://saini-lifters-default-rtdb.firebaseio.com/requests/${coachId}.json`)
+				.then((res) => {
+					let data = res.data
+					let requests = []
+					for (let id in data) {
+						const request = {
+							id: id,
+							message: data[id].message,
+							userEmail: data[id].userEmail,
+							coachId: coachId,
+						}
+						requests.push(request)
+					}
+					context.commit('setRequest', requests)
+				})
+				.catch((err) => {
+					console.log(err)
+				})
 		},
 	},
 	getters: {

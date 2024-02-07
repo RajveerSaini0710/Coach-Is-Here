@@ -23,6 +23,7 @@
 				/>
 			</ul>
 			<h3 v-else>No Coaches Found</h3>
+			{{ error }}
 		</BaseCard>
 	</section>
 </template>
@@ -55,9 +56,14 @@ export default {
 		isCoach() {
 			return this.$store.getters.isCoach
 		},
+		isError() {
+			const error = this.$store.getters.error
+			return (this.error = error)
+		},
 	},
 	data() {
 		return {
+			error: null,
 			isDataLoaded: false,
 			activeFilter: {
 				Frontend: true,

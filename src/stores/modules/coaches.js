@@ -38,22 +38,27 @@ const coachesModule = {
 			})
 		},
 		async loadCoaches(context) {
-			await axios.get(`https://saini-lifters-default-rtdb.firebaseio.com/coaches.json`).then((res) => {
-				let data = res.data
-				let coaches = []
-				for (const id in data) {
-					const coach = {
-						id: id,
-						firstName: data[id].firstName,
-						lastName: data[id].lastName,
-						areas: data[id].areas,
-						description: data[id].description,
-						hourlyRate: data[id].hourlyRate,
+			await axios
+				.get(`https://saini-lifters-default-rtdb.firebaseio.com/coaches.json`)
+				.then((res) => {
+					let data = res.data
+					let coaches = []
+					for (const id in data) {
+						const coach = {
+							id: id,
+							firstName: data[id].firstName,
+							lastName: data[id].lastName,
+							areas: data[id].areas,
+							description: data[id].description,
+							hourlyRate: data[id].hourlyRate,
+						}
+						coaches.push(coach)
 					}
-					coaches.push(coach)
-				}
-				context.commit('setCoach', coaches)
-			})
+					context.commit('setCoach', coaches)
+				})
+				.catch((err) => {
+					console.log(err)
+				})
 		},
 	},
 	getters: {
