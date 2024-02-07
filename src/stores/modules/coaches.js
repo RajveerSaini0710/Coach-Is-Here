@@ -3,31 +3,15 @@ import axios from 'axios'
 const coachesModule = {
 	state() {
 		return {
-			coaches: [
-				{
-					id: 'c1',
-					firstName: 'Maximilian',
-					lastName: 'Schwarzmüller',
-					areas: ['frontend', 'backend', 'career'],
-					description:
-						"I'm Maximilian and I've worked as a freelance web developer for years. Let me help you become a developer as well!",
-					hourlyRate: 30,
-				},
-				{
-					id: 'c2',
-					firstName: 'Julie',
-					lastName: 'Jones',
-					areas: ['frontend', 'career'],
-					description:
-						'I am Julie and as a senior developer in a big tech company, I can help you get your first job or progress in your current role.',
-					hourlyRate: 30,
-				},
-			],
+			coaches: [],
 		}
 	},
 	mutations: {
 		addCoach(state, payload) {
 			state.coaches.push(payload)
+		},
+		setCoach(state, payload) {
+			state.coaches = payload
 		},
 	},
 	actions: {
@@ -51,6 +35,24 @@ const coachesModule = {
 			context.commit('addCoach', {
 				...coachData,
 				id: userId,
+			})
+		},
+		async loadCoaches(context) {
+			await axios.get(`https://saini-lifters-default-rtdb.firebaseio.com/coaches.json`).then((res) => {
+				let data = res.data
+				let coaches = []
+				for (const id in data) {
+					const coach = {
+						id: id,
+						firstName: data[id].firstName,
+						lastName: data[id].lastName,
+						areas: data[id].areas,
+						description: data[id].description,
+						hourlyRate: data[id].hourlyRate,
+					}
+					coaches.push(coach)
+				}
+				context.commit('setCoach', coaches)
 			})
 		},
 	},

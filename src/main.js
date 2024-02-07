@@ -11,12 +11,14 @@ import 'primevue/resources/themes/lara-light-purple/theme.css'
 import BaseCard from '../src/components/ui/BaseCard.vue'
 import BaseButton from '../src/components/ui/BaseButton.vue'
 import BaseBadge from '../src/components/ui/BaseBadge.vue'
+import BaseSpinner from '../src/components/ui/BaseSpinner.vue'
 
 const app = createApp(App)
 
 app.component('BaseCard', BaseCard)
 app.component('BaseButton', BaseButton)
 app.component('BaseBadge', BaseBadge)
+app.component('BaseSpinner', BaseSpinner)
 
 app.use(store)
 app.use(router)

@@ -5,10 +5,13 @@
 	<section class="flex justify-center">
 		<BaseCard>
 			<div class="flex">
-				<BaseButton primeVueButton outlined label="Refresh" class="flex-grow"> </BaseButton>
-				<BaseButton v-if="!isCoach" link to="/register">Register As Coach</BaseButton>
+				<BaseButton primeVueButton outlined label="Refresh" class="flex-grow" @click="loadCoaches"> </BaseButton>
+				<BaseButton v-if="!isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
 			</div>
-			<ul v-if="hasCoaches">
+			<div v-if="isDataLoaded">
+				<BaseSpinner></BaseSpinner>
+			</div>
+			<ul v-else-if="hasCoaches">
 				<CoachItem
 					v-for="coach in filteredCoaches"
 					:key="coach.id"
@@ -47,7 +50,7 @@ export default {
 			})
 		},
 		hasCoaches() {
-			return this.$store.getters.hasCoaches
+			return !this.isDataLoaded && this.$store.getters.hasCoaches
 		},
 		isCoach() {
 			return this.$store.getters.isCoach
@@ -55,12 +58,16 @@ export default {
 	},
 	data() {
 		return {
+			isDataLoaded: false,
 			activeFilter: {
 				Frontend: true,
 				Backend: true,
 				Career: true,
 			},
 		}
+	},
+	created() {
+		this.loadCoaches()
 	},
 	methods: {
 		setFilter(updateFilter) {
@@ -70,6 +77,11 @@ export default {
 				Career: updateFilter.includes('Career'),
 			}
 			this.activeFilter = newFilter
+		},
+		async loadCoaches() {
+			this.isDataLoaded = true
+			await this.$store.dispatch('loadCoaches')
+			this.isDataLoaded = false
 		},
 	},
 }
