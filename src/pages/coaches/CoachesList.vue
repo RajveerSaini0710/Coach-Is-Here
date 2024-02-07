@@ -6,7 +6,7 @@
 		<BaseCard>
 			<div class="flex">
 				<BaseButton primeVueButton outlined label="Refresh" class="flex-grow"> </BaseButton>
-				<BaseButton link to="/register">Register As Coach</BaseButton>
+				<BaseButton v-if="!isCoach" link to="/register">Register As Coach</BaseButton>
 			</div>
 			<ul v-if="hasCoaches">
 				<CoachItem
@@ -48,6 +48,9 @@ export default {
 		},
 		hasCoaches() {
 			return this.$store.getters.hasCoaches
+		},
+		isCoach() {
+			return this.$store.getters.isCoach
 		},
 	},
 	data() {

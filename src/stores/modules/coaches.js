@@ -31,7 +31,7 @@ const coachesModule = {
 	actions: {
 		addCoach(context, payload) {
 			const coachData = {
-				id: 'c3',
+				id: context.rootGetters.userId,
 				firstName: payload.first_name,
 				lastName: payload.last_name,
 				areas: payload.selected_area.map((area) => area.toLowerCase()),
@@ -47,6 +47,11 @@ const coachesModule = {
 		},
 		hasCoaches(state) {
 			return state.coaches && state.coaches.length > 0
+		},
+		isCoach(_state, getters, _rootState, rootGetters) {
+			const coaches = getters.coaches
+			const userId = rootGetters.userId
+			return coaches.some((coach) => coach.id === userId)
 		},
 	},
 }

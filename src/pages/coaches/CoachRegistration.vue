@@ -189,6 +189,7 @@ export default {
 					dob: this.data.dob,
 				}
 				this.$store.dispatch('addCoach', payload)
+				this.$router.push('/coaches')
 				// axios
 				// 	.post('https://saini-lifters-default-rtdb.firebaseio.com/coach-form.json', payload)
 				// 	.then((res) => {
