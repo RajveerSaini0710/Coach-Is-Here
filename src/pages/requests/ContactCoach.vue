@@ -74,7 +74,13 @@ export default {
 			if (!this.isFormDataValid) {
 				window.scrollTo({ top: 0, behavior: 'smooth' })
 			} else {
-				console.log(this.data)
+				const payload = {
+					email: this.data.email,
+					message: this.data.message,
+					coachId: this.$route.params.id,
+				}
+				this.$store.dispatch('addRequest', payload)
+				this.$router.push('/coaches')
 			}
 		},
 	},

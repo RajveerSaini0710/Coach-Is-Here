@@ -16,7 +16,7 @@ const router = createRouter({
 			component: () => import('./pages/coaches/CoachDetail.vue'),
 			children: [
 				{
-					path: '/contact',
+					path: 'contact',
 					name: 'ContactCoach',
 					component: () => import('./pages/requests/ContactCoach.vue'),
 				},
