@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const coachesModule = {
 	state() {
 		return {
@@ -29,16 +31,27 @@ const coachesModule = {
 		},
 	},
 	actions: {
-		addCoach(context, payload) {
+		async addCoach(context, payload) {
+			const userId = context.rootGetters.userId
 			const coachData = {
-				id: context.rootGetters.userId,
 				firstName: payload.first_name,
 				lastName: payload.last_name,
 				areas: payload.selected_area.map((area) => area.toLowerCase()),
 				description: payload.discription,
 				hourlyRate: payload.hourly_rate,
 			}
-			context.commit('addCoach', coachData)
+			await axios
+				.put(`https://saini-lifters-default-rtdb.firebaseio.com/coaches/${userId}.json`, coachData)
+				.then((res) => {
+					console.log(res)
+				})
+				.catch((err) => {
+					console.log(err)
+				})
+			context.commit('addCoach', {
+				...coachData,
+				id: userId,
+			})
 		},
 	},
 	getters: {
