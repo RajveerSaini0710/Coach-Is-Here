@@ -4,7 +4,6 @@
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Intrested? Reach Out Now! :</h1>
 			<div class="flex items-center mb-4 flex-wrap ml-4">
 				<formInput
-					@keypress="isLetter($event)"
 					label="Email ID"
 					v-model.trim="data.email"
 					size="small"
@@ -20,11 +19,10 @@
 					<Textarea v-model="data.message" rows="5" cols="50" placeholder="Message ..." />
 				</div>
 				<InlineMessage v-if="!isFormDataValid" class="text-xs text-red-600 ml-4">{{ formError.message }}</InlineMessage>
-
-				<BaseButton class="font-bold flex items-center justify-end" normalButton @click.prevent="submitFormData">
-					Send Request
-				</BaseButton>
 			</div>
+			<BaseButton class="font-bold flex items-center justify-end" normalButton @click.prevent="submitFormData">
+				Send Request
+			</BaseButton>
 		</BaseCard>
 	</section>
 </template>
@@ -60,7 +58,7 @@ export default {
 				email: '',
 				message: '',
 			}
-			if (!this.data.email && !this.data.email.includes('@')) {
+			if (!this.data.email || !this.data.email.includes('@')) {
 				this.formError.email = 'please enter the email correctly'
 				this.isFormDataValid = false
 			}
@@ -70,7 +68,7 @@ export default {
 			}
 		},
 		submitFormData() {
-			this.validateFormData
+			this.validateFormData()
 			if (!this.isFormDataValid) {
 				window.scrollTo({ top: 0, behavior: 'smooth' })
 			} else {
@@ -82,12 +80,6 @@ export default {
 				this.$store.dispatch('addRequest', payload)
 				this.$router.push('/coaches')
 			}
-		},
-		isLetter(e) {
-			let char = String.fromCharCode(e.keyCode) // Get the character
-			if (/^[A-Za-z]+$/.test(char))
-				return true // Match with regex
-			else e.preventDefault() // If not match, don't add to input text
 		},
 	},
 }
