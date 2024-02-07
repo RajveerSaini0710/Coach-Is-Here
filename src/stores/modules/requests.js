@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const requestModule = {
 	state() {
 		return {
@@ -6,6 +8,7 @@ const requestModule = {
 	},
 	mutations: {
 		addRequest(state, payload) {
+			console.log(payload)
 			return state.requests.push(payload)
 		},
 	},
@@ -17,10 +20,19 @@ const requestModule = {
 				userEmail: payload.email,
 				message: payload.message,
 			}
+
 			context.commit('addRequest', newRequest)
 		},
 	},
-	getters: {},
+	getters: {
+		requests(state, _getters, _rootState, rootGetters) {
+			const coachId = rootGetters.userId
+			return state.requests.filter((req) => req.coachId === coachId)
+		},
+		hasRequests(_state, getters) {
+			return getters.requests && getters.requests.length > 0
+		},
+	},
 }
 
 export default requestModule
