@@ -1,14 +1,14 @@
 <template>
 	<section class="flex justify-center">
 		<BaseCard>
-			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Register As A Coach :</h1>
+			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Intrested? Reach Out Now! :</h1>
 			<div class="flex items-center mb-4 flex-wrap ml-4">
 				<formInput
 					@keypress="isLetter($event)"
-					label="First Name"
+					label="Email ID"
 					v-model.trim="data.email"
 					size="small"
-					placeholder="John"
+					placeholder="john123@gmail.com"
 					class="mr-10"
 					:errorMessage="formError.email"
 				/>
@@ -82,6 +82,12 @@ export default {
 				this.$store.dispatch('addRequest', payload)
 				this.$router.push('/coaches')
 			}
+		},
+		isLetter(e) {
+			let char = String.fromCharCode(e.keyCode) // Get the character
+			if (/^[A-Za-z]+$/.test(char))
+				return true // Match with regex
+			else e.preventDefault() // If not match, don't add to input text
 		},
 	},
 }
