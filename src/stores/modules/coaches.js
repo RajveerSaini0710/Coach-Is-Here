@@ -23,8 +23,24 @@ const coachesModule = {
 			],
 		}
 	},
-	mutations: {},
-	actions: {},
+	mutations: {
+		addCoach(state, payload) {
+			state.coaches.push(payload)
+		},
+	},
+	actions: {
+		addCoach(context, payload) {
+			const coachData = {
+				id: 'c3',
+				firstName: payload.first_name,
+				lastName: payload.last_name,
+				areas: payload.selected_area.map((area) => area.toLowerCase()),
+				description: payload.discription,
+				hourlyRate: payload.hourly_rate,
+			}
+			context.commit('addCoach', coachData)
+		},
+	},
 	getters: {
 		coaches(state) {
 			return state.coaches
