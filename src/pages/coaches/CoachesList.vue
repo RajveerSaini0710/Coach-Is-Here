@@ -5,7 +5,7 @@
 	<section class="flex justify-center">
 		<BaseCard>
 			<div class="flex">
-				<BaseButton primeVueButton outlined label="Refresh" class="flex-grow" @click="loadCoaches"> </BaseButton>
+				<BaseButton primeVueButton outlined label="Refresh" class="flex-grow" @click="loadCoaches(true)"> </BaseButton>
 				<BaseButton v-if="!isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
 			</div>
 			<div v-if="isDataLoaded">
@@ -84,9 +84,9 @@ export default {
 			}
 			this.activeFilter = newFilter
 		},
-		async loadCoaches() {
+		async loadCoaches(refresh = false) {
 			this.isDataLoaded = true
-			await this.$store.dispatch('loadCoaches')
+			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh })
 			this.isDataLoaded = false
 		},
 	},

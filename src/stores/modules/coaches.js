@@ -4,6 +4,7 @@ const coachesModule = {
 	state() {
 		return {
 			coaches: [],
+			lastFetch: null,
 		}
 	},
 	mutations: {
@@ -12,6 +13,9 @@ const coachesModule = {
 		},
 		setCoach(state, payload) {
 			state.coaches = payload
+		},
+		setLastFetchTimeStamp(state) {
+			state.lastFetch = new Date().getTime()
 		},
 	},
 	actions: {
@@ -37,7 +41,10 @@ const coachesModule = {
 				id: userId,
 			})
 		},
-		async loadCoaches(context) {
+		async loadCoaches(context, payload) {
+			if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+				return
+			}
 			await axios
 				.get(`https://saini-lifters-default-rtdb.firebaseio.com/coaches.json`)
 				.then((res) => {
@@ -55,6 +62,7 @@ const coachesModule = {
 						coaches.push(coach)
 					}
 					context.commit('setCoach', coaches)
+					context.commit('setLastFetchTimeStamp')
 				})
 				.catch((err) => {
 					console.log(err)
@@ -72,6 +80,14 @@ const coachesModule = {
 			const coaches = getters.coaches
 			const userId = rootGetters.userId
 			return coaches.some((coach) => coach.id === userId)
+		},
+		shouldUpdate(state) {
+			const lastFetch = state.lastFetch
+			if (!lastFetch) {
+				return true
+			}
+			const currentTimeStamp = new Date().getTime()
+			return (currentTimeStamp - lastFetch) / 1000 > 60
 		},
 	},
 }
