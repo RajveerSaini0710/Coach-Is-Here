@@ -5,6 +5,7 @@ const coachesModule = {
 		return {
 			coaches: [],
 			lastFetch: null,
+			error: null,
 		}
 	},
 	mutations: {
@@ -16,6 +17,9 @@ const coachesModule = {
 		},
 		setLastFetchTimeStamp(state) {
 			state.lastFetch = new Date().getTime()
+		},
+		setError(state, error) {
+			state.error = error
 		},
 	},
 	actions: {
@@ -34,7 +38,7 @@ const coachesModule = {
 					console.log(res)
 				})
 				.catch((err) => {
-					console.log(err)
+					context.commit('setError', err)
 				})
 			context.commit('addCoach', {
 				...coachData,
@@ -65,7 +69,7 @@ const coachesModule = {
 					context.commit('setLastFetchTimeStamp')
 				})
 				.catch((err) => {
-					console.log(err)
+					context.commit('setError', err)
 				})
 		},
 	},
@@ -88,6 +92,9 @@ const coachesModule = {
 			}
 			const currentTimeStamp = new Date().getTime()
 			return (currentTimeStamp - lastFetch) / 1000 > 60
+		},
+		showError(state) {
+			return state.error
 		},
 	},
 }

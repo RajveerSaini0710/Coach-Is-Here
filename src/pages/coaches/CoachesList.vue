@@ -9,7 +9,8 @@
 					<BaseButton primeVueButton outlined label="Refresh" class="flex-grow" @click="loadCoaches(true)"> </BaseButton>
 					<BaseButton v-if="!isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
 				</div>
-				<div v-if="isDataLoaded">
+				<p v-if="isError" class="text-sm text-red-500 my-6">{{ error }} / Something is wrong please try again later ...</p>
+				<div v-else-if="isDataLoaded">
 					<BaseSpinner></BaseSpinner>
 				</div>
 				<ul v-else-if="hasCoaches">
@@ -24,7 +25,6 @@
 					/>
 				</ul>
 				<h3 v-else>No Coaches Found</h3>
-				{{ error }}
 			</BaseCard>
 		</section>
 	</div>
@@ -59,8 +59,9 @@ export default {
 			return this.$store.getters.isCoach
 		},
 		isError() {
-			const error = this.$store.getters.error
-			return (this.error = error)
+			const error = this.$store.getters.showError
+			this.error = error
+			return this.$store.getters.showError
 		},
 	},
 	data() {
