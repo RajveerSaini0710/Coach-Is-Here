@@ -1,7 +1,4 @@
 <template>
-	<div></div>
-	<div></div>
-	<div></div>
 	<section class="flex justify-center">
 		<BaseCard class="flex justify-center items-center flex-col">
 			<header class="text-purple-700 text-2xl font-bold mb-6">Request Received</header>
