@@ -9,22 +9,28 @@
 					v-model.trim="data.email"
 					placeholder="text123@test.com"
 					class="mb-4"
+					:errorMessage="formError.email"
 				/>
 				<div class="mb-6">
-					<label for="password" class="text-purple-600 block">Password</label>
+					<label for="password" class="text-purple-600 block mb-1">Password</label>
 					<Password
 						v-model="data.password"
 						inputId="password"
 						toggleMask
+						placeholder="Test@123"
+						required
 						size="small"
-						class="w-full border border-purple-200 focus:border-purple-500 rounded-md placeholder:Test@123"
+						class="w-full"
+						inputClass="w-full ring-transparent border border-purple-200 focus:border-purple-500 rounded-md width"
 					/>
+					<InlineMessage v-if="formError.password" class="text-xs text-red-600">{{ formError.password }}</InlineMessage>
 				</div>
 				<div class="flex mb-6">
-					<BaseButton normalButton class="mr-2 text-base">Login </BaseButton>
+					<BaseButton normalButton class="mr-4 text-base" @click="submitData">Login</BaseButton>
 					<BaseButton
 						customButton
 						class="border-none px-4 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
+						@click="switchAuthMode"
 					>
 						Signup Instead
 					</BaseButton>
@@ -36,6 +42,7 @@
 
 <script>
 import Password from 'primevue/password'
+import InlineMessage from 'primevue/inlinemessage'
 import formInput from '../../components/ui/inputtext.vue'
 import BaseButton from '../../components/ui/BaseButton.vue'
 export default {
@@ -43,6 +50,7 @@ export default {
 		Password,
 		formInput,
 		BaseButton,
+		InlineMessage,
 	},
 	data() {
 		return {
@@ -51,9 +59,39 @@ export default {
 				password: null,
 				confirmPassword: null,
 			},
+			formError: {
+				email: '',
+				password: '',
+				confirmPassword: '',
+			},
+			isFormValid: true,
+			mode: 'login',
 		}
 	},
 	methods: {
+		validLoginData() {
+			this.isFormValid = true
+			this.formError = {
+				email: '',
+				password: '',
+				confirmPassword: '',
+			}
+			if (!this.data.email || !this.data.email.includes('@')) {
+				this.formError.email = 'Please Enter your Email correctely'
+				this.isFormValid = false
+			}
+			if (!this.data.password || !this.data.password.length < 7) {
+				this.formError.password = 'Please enter your Password correctely'
+				this.isFormValid = false
+			}
+		},
+		submitData() {
+			this.validLoginData
+			console.log('submit data')
+		},
+		switchAuthMode() {
+			console.log('hello')
+		},
 		isEmail(e) {
 			return String(e)
 				.toLowerCase()
