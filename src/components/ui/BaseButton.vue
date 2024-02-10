@@ -1,5 +1,5 @@
 <template>
-	<div class="inline-block" v-if="!link && !outlinedLink && !normalButton && primeVueButton">
+	<div class="inline-block" v-if="!link && !outlinedLink && !normalButton && !customButton && primeVueButton">
 		<Button
 			:label="label"
 			:raised="raised"
@@ -14,14 +14,19 @@
 			class="text-purple-800 py-3 px-6 rounded-3xl mr-2 border-purple-600 hover:bg-purple-50 active:bg-purple-50"
 		/>
 	</div>
-	<div v-else-if="!link && !outlinedLink && !primeVueButton && normalButton">
+	<div v-else-if="!link && !outlinedLink && !primeVueButton && !customButton && normalButton">
 		<button
 			class="py-3 px-6 bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
 		>
 			<slot></slot>
 		</button>
 	</div>
-	<div v-else-if="!link && !primeVueButton && !normalButton && outlinedLink">
+	<div v-else-if="!link && !outlinedLink && !primeVueButton && !normalButton && customButton">
+		<button :class="customClass">
+			<slot></slot>
+		</button>
+	</div>
+	<div v-else-if="!link && !primeVueButton && !normalButton && !customButton && outlinedLink">
 		<router-link
 			class="flex text-purple-800 py-3 px-6 rounded-3xl mr-2 border border-purple-600 hover:bg-purple-50 active:bg-purple-50"
 			:to="to"
@@ -52,12 +57,14 @@ export default {
 		label: { type: String },
 		badge: { type: String },
 		size: { type: String },
+		customClass: { type: String },
 		severity: { type: String },
 		badgeClass: { type: String },
 		link: { type: Boolean, default: false },
 		to: { type: String, default: '/' },
 		normalButton: { type: Boolean, default: false },
 		primeVueButton: { type: Boolean, default: false },
+		customButton: { type: Boolean, default: false },
 		outlinedLink: { type: Boolean, default: false },
 	},
 	components: {

@@ -33,6 +33,11 @@ const router = createRouter({
 			component: () => import('./pages/requests/RequestReceived.vue'),
 		},
 		{
+			path: '/auth',
+			name: 'UserAuth',
+			component: () => import('./pages/auth/UserAuth.vue'),
+		},
+		{
 			path: '/:notFound(.*)',
 			name: 'NotFoundPage',
 			component: () => import('./pages/NotFound.vue'),
