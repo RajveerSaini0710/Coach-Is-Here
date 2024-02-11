@@ -1,7 +1,7 @@
 <template>
 	<section class="flex justify-center">
 		<BaseCard>
-			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">{{ 'Login Page' }}</h1>
+			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">{{ submitButtonCaption }} Page</h1>
 			<div class="flex flex-col">
 				<formInput
 					@keypress="isEmail($event)"
@@ -15,7 +15,7 @@
 					<label for="password" class="text-purple-600 block mb-1">Password</label>
 					<Password
 						v-model="data.password"
-						inputId="password"
+						inputId="Password"
 						toggleMask
 						placeholder="Test@123"
 						required
@@ -25,14 +25,30 @@
 					/>
 					<InlineMessage v-if="formError.password" class="text-xs text-red-600">{{ formError.password }}</InlineMessage>
 				</div>
+				<div class="mb-6" v-if="this.mode === 'signup'">
+					<label for="password" class="text-purple-600 block mb-1">Confirm Password</label>
+					<Password
+						v-model="data.confirmPassword"
+						inputId="Confirm Password"
+						toggleMask
+						placeholder="Test@123"
+						required
+						size="small"
+						class="w-full"
+						inputClass="w-full ring-transparent border border-purple-200 focus:border-purple-500 rounded-md width"
+					/>
+					<InlineMessage v-if="formError.confirmPassword" class="text-xs text-red-600">{{
+						formError.confirmPassword
+					}}</InlineMessage>
+				</div>
 				<div class="flex mb-6">
-					<BaseButton normalButton class="mr-4 text-base" @click="submitData">Login</BaseButton>
+					<BaseButton normalButton class="mr-4 text-base" @click="submitData">{{ submitButtonCaption }}</BaseButton>
 					<BaseButton
 						customButton
 						class="border-none px-4 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
 						@click="switchAuthMode"
 					>
-						Signup Instead
+						{{ switchModeButtonCaption }}
 					</BaseButton>
 				</div>
 			</div>
@@ -67,6 +83,22 @@ export default {
 			mode: 'login',
 		}
 	},
+	computed: {
+		submitButtonCaption() {
+			if (this.mode === 'login') {
+				return 'Login'
+			} else {
+				return 'Signup'
+			}
+		},
+		switchModeButtonCaption() {
+			if (this.mode === 'login') {
+				return 'Signup Instead'
+			} else {
+				return 'Login Instead'
+			}
+		},
+	},
 	methods: {
 		validLoginData() {
 			this.isFormValid = true
@@ -79,8 +111,12 @@ export default {
 				this.formError.email = 'Please Enter your Email correctely'
 				this.isFormValid = false
 			}
-			if (!this.data.password) {
+			if (!this.data.password || this.data.password.length < 7) {
 				this.formError.password = 'Please enter your Password correctely'
+				this.isFormValid = false
+			}
+			if (this.data.password !== this.data.confirmPassword) {
+				this.formError.confirmPassword = "Password Don't Match"
 				this.isFormValid = false
 			}
 		},
@@ -89,7 +125,11 @@ export default {
 			console.log('Login')
 		},
 		switchAuthMode() {
-			console.log('switch')
+			if (this.mode === 'login') {
+				this.mode = 'signup'
+			} else {
+				this.mode = 'login'
+			}
 		},
 		isEmail(e) {
 			return String(e)
