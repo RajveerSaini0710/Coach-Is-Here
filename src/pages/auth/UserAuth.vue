@@ -50,7 +50,6 @@ export default {
 		Password,
 		formInput,
 		BaseButton,
-		InlineMessage,
 	},
 	data() {
 		return {
@@ -80,17 +79,17 @@ export default {
 				this.formError.email = 'Please Enter your Email correctely'
 				this.isFormValid = false
 			}
-			if (!this.data.password || !this.data.password.length < 7) {
+			if (!this.data.password) {
 				this.formError.password = 'Please enter your Password correctely'
 				this.isFormValid = false
 			}
 		},
 		submitData() {
-			this.validLoginData
-			console.log('submit data')
+			this.validLoginData()
+			console.log('Login')
 		},
 		switchAuthMode() {
-			console.log('hello')
+			console.log('switch')
 		},
 		isEmail(e) {
 			return String(e)
