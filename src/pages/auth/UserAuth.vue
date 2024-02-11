@@ -122,7 +122,11 @@ export default {
 		},
 		submitData() {
 			this.validLoginData()
-			console.log('Login')
+			if (!this.isFormDataValid) {
+				window.scrollTo({ top: 0, behavior: 'smooth' })
+			} else {
+				console.log('login')
+			}
 		},
 		switchAuthMode() {
 			if (this.mode === 'login') {
