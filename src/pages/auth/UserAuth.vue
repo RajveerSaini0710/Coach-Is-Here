@@ -144,19 +144,20 @@ export default {
 		},
 		async submitData() {
 			this.validLoginData()
+			this.isLoading = true
 			if (!this.isFormValid) {
 				window.scrollTo({ top: 0, behavior: 'smooth' })
 			} else if (this.mode === 'login') {
 				console.log('login')
 			} else {
 				console.log('signup')
-				this.isLoading = true
+
 				await this.$store.dispatch('signup', {
 					email: this.data.email,
 					password: this.data.password,
 				})
-				this.isLoading = false
 			}
+			this.isLoading = false
 		},
 		switchAuthMode() {
 			if (this.mode === 'login') {
