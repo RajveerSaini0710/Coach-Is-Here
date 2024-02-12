@@ -21,6 +21,7 @@ const coachesModule = {
 	actions: {
 		async addCoach(context, payload) {
 			const userId = context.rootGetters.userId
+			const token = context.rootGetters.token
 			const coachData = {
 				firstName: payload.first_name,
 				lastName: payload.last_name,
@@ -29,7 +30,7 @@ const coachesModule = {
 				hourlyRate: payload.hourly_rate,
 			}
 			await axios
-				.put(`https://coach-is-here-default-rtdb.firebaseio.com/coaches/${userId}.json`, coachData)
+				.put(`https://coach-is-here-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + token, coachData)
 				.then((res) => {
 					console.log(res)
 				})

@@ -36,9 +36,9 @@ const authModule = {
 				.then((res) => {
 					console.log(res)
 					const payload = {
-						token: res.idToken,
-						userId: res.localId,
-						tokenExpiration: res.expiresIn,
+						token: res.data.idToken,
+						userId: res.data.localId,
+						tokenExpiration: res.data.expiresIn,
 					}
 					context.commit('setUser', payload)
 				})
@@ -81,6 +81,9 @@ const authModule = {
 	getters: {
 		userId(state) {
 			return state.userId
+		},
+		token(state) {
+			return state.token
 		},
 		showError(state) {
 			const error = { message: state.errorMessage, code: state.errorCode }

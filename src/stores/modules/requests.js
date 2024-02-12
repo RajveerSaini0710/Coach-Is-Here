@@ -35,8 +35,9 @@ const requestModule = {
 		},
 		async fetchRequest(context) {
 			const coachId = context.rootGetters.userId
+			const token = context.rootGetters.token
 			await axios
-				.get(`https://coach-is-here-default-rtdb.firebaseio.com/requests/${coachId}.json`)
+				.get(`https://coach-is-here-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=${token}`)
 				.then((res) => {
 					let data = res.data
 					let requests = []
