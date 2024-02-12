@@ -164,15 +164,20 @@ export default {
 				email: this.data.email,
 				password: this.data.password,
 			}
-
-			if (this.mode === 'login') {
-				this.isLoading = true
-				await this.$store.dispatch('login', payload)
-				this.isLoading = false
-			} else {
-				this.isLoading = true
-				await this.$store.dispatch('signup', payload)
-				this.isLoading = false
+			try {
+				if (this.mode === 'login') {
+					this.isLoading = true
+					await this.$store.dispatch('login', payload)
+					this.isLoading = false
+				} else {
+					this.isLoading = true
+					await this.$store.dispatch('signup', payload)
+					this.mode = 'login'
+					this.isLoading = false
+				}
+				this.$router.replace('/coaches')
+			} catch (err) {
+				console.log(err.message)
 			}
 		},
 		switchAuthMode() {

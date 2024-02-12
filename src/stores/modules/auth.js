@@ -77,6 +77,14 @@ const authModule = {
 					context.commit('setError', errorPayload)
 				})
 		},
+		logout(context) {
+			const payload = {
+				token: null,
+				userId: null,
+				tokenExpiration: null,
+			}
+			context.commit('setUser', payload)
+		},
 	},
 	getters: {
 		userId(state) {
