@@ -1,5 +1,5 @@
 <template>
-	<section class="flex justify-center">
+	<section class="flex flex-col items-center">
 		<BaseCard>
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">{{ submitButtonCaption }} Page</h1>
 			<div v-if="isLoading">
@@ -56,6 +56,16 @@
 				</div>
 			</div>
 		</BaseCard>
+		<div class="text-sm text-red-500">
+			<InlineMessage class="block mb-2" v-if="showError.message">
+				Message:
+				{{ showError.message }}
+			</InlineMessage>
+			<InlineMessage v-if="showError.code">
+				ErrorCode:
+				{{ showError.code }}
+			</InlineMessage>
+		</div>
 	</section>
 </template>
 
@@ -64,11 +74,15 @@ import Password from 'primevue/password'
 import InlineMessage from 'primevue/inlinemessage'
 import formInput from '../../components/ui/inputtext.vue'
 import BaseButton from '../../components/ui/BaseButton.vue'
+import { mapGetters } from 'vuex'
+import Toast from 'primevue/toast'
+
 export default {
 	components: {
 		Password,
 		formInput,
 		BaseButton,
+		Toast,
 	},
 	data() {
 		return {
@@ -87,6 +101,7 @@ export default {
 			isLoading: false,
 		}
 	},
+
 	computed: {
 		submitButtonCaption() {
 			if (this.mode === 'login') {
@@ -120,6 +135,7 @@ export default {
 				return 'Login Instead'
 			}
 		},
+		...mapGetters(['showError']),
 	},
 	methods: {
 		validLoginData() {
@@ -144,20 +160,19 @@ export default {
 		},
 		async submitData() {
 			this.validLoginData()
-			this.isLoading = true
+
 			if (!this.isFormValid) {
 				window.scrollTo({ top: 0, behavior: 'smooth' })
 			} else if (this.mode === 'login') {
 				console.log('login')
 			} else {
-				console.log('signup')
-
+				this.isLoading = true
 				await this.$store.dispatch('signup', {
 					email: this.data.email,
 					password: this.data.password,
 				})
+				this.isLoading = false
 			}
-			this.isLoading = false
 		},
 		switchAuthMode() {
 			if (this.mode === 'login') {

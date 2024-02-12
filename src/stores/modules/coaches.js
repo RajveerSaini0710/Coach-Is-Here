@@ -18,9 +18,6 @@ const coachesModule = {
 		setLastFetchTimeStamp(state) {
 			state.lastFetch = new Date().getTime()
 		},
-		setError(state, error) {
-			state.error = error
-		},
 	},
 	actions: {
 		async addCoach(context, payload) {
@@ -69,7 +66,7 @@ const coachesModule = {
 					context.commit('setLastFetchTimeStamp')
 				})
 				.catch((err) => {
-					context.commit('setError', err)
+					console.log(err)
 				})
 		},
 	},
@@ -92,9 +89,6 @@ const coachesModule = {
 			}
 			const currentTimeStamp = new Date().getTime()
 			return (currentTimeStamp - lastFetch) / 1000 > 60
-		},
-		showError(state) {
-			return state.error
 		},
 	},
 }

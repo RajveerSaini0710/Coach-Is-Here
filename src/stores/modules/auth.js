@@ -6,6 +6,8 @@ const authModule = {
 			userId: null,
 			token: null,
 			tokenExpiration: null,
+			errorMessage: null,
+			errorCode: null,
 		}
 	},
 	mutations: {
@@ -13,6 +15,10 @@ const authModule = {
 			state.token = payload.token
 			state.userId = payload.userId
 			state.tokenExpiration = payload.tokenExpiration
+		},
+		setError(state, error) {
+			state.errorMessage = error.message
+			state.errorCode = error.code
 		},
 	},
 	actions: {
@@ -35,13 +41,22 @@ const authModule = {
 					context.commit('setUser', payload)
 				})
 				.catch((err) => {
-					console.log(err)
+					console.log(err.message)
+					const errorPayload = {
+						message: err.response.data.error.message,
+						code: err.message,
+					}
+					context.commit('setError', errorPayload)
 				})
 		},
 	},
 	getters: {
 		userId(state) {
 			return state.userId
+		},
+		showError(state) {
+			const error = { message: state.errorMessage, code: state.errorCode }
+			return error
 		},
 	},
 }
