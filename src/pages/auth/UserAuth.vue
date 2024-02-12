@@ -169,7 +169,6 @@ export default {
 				this.isLoading = true
 				await this.$store.dispatch('login', payload)
 				this.isLoading = false
-				console.log('login')
 			} else {
 				this.isLoading = true
 				await this.$store.dispatch('signup', payload)

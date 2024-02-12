@@ -43,7 +43,6 @@ export default {
 	computed: {
 		filteredCoaches() {
 			const coaches = this.$store.getters.coaches
-			console.log(coaches)
 			return coaches.filter((coach) => {
 				return (
 					(this.activeFilter.Frontend && coach.areas.includes('frontend')) ||
