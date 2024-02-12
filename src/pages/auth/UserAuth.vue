@@ -2,7 +2,10 @@
 	<section class="flex justify-center">
 		<BaseCard>
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">{{ submitButtonCaption }} Page</h1>
-			<div class="flex flex-col">
+			<div v-if="isLoading">
+				<BaseSpinner></BaseSpinner>
+			</div>
+			<div v-else class="flex flex-col">
 				<formInput
 					@keypress="isEmail($event)"
 					label="Email"
@@ -81,6 +84,7 @@ export default {
 			},
 			isFormValid: true,
 			mode: 'login',
+			isLoading: false,
 		}
 	},
 	computed: {
@@ -93,8 +97,26 @@ export default {
 		},
 		switchModeButtonCaption() {
 			if (this.mode === 'login') {
+				this.formError = {
+					email: '',
+					password: '',
+				}
+				this.data = {
+					email: null,
+					password: null,
+				}
 				return 'Signup Instead'
 			} else {
+				this.formError = {
+					email: '',
+					password: '',
+					confirmPassword: '',
+				}
+				this.data = {
+					email: null,
+					password: null,
+					confirmPassword: null,
+				}
 				return 'Login Instead'
 			}
 		},
@@ -120,7 +142,7 @@ export default {
 				this.isFormValid = false
 			}
 		},
-		submitData() {
+		async submitData() {
 			this.validLoginData()
 			if (!this.isFormValid) {
 				window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -128,10 +150,12 @@ export default {
 				console.log('login')
 			} else {
 				console.log('signup')
-				this.$store.dispatch('signup', {
+				this.isLoading = true
+				await this.$store.dispatch('signup', {
 					email: this.data.email,
 					password: this.data.password,
 				})
+				this.isLoading = false
 			}
 		},
 		switchAuthMode() {
