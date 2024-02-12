@@ -22,7 +22,7 @@ const requestModule = {
 			}
 			try {
 				const res = await axios.post(
-					`https://saini-lifters-default-rtdb.firebaseio.com/requests/${payload.coachId}.json`,
+					`https://coach-is-here-default-rtdb.firebaseio.com/requests/${payload.coachId}.json`,
 					newRequest
 				)
 				const Id = res.data.name
@@ -36,7 +36,7 @@ const requestModule = {
 		async fetchRequest(context) {
 			const coachId = context.rootGetters.userId
 			await axios
-				.get(`https://saini-lifters-default-rtdb.firebaseio.com/requests/${coachId}.json`)
+				.get(`https://coach-is-here-default-rtdb.firebaseio.com/requests/${coachId}.json`)
 				.then((res) => {
 					let data = res.data
 					let requests = []
