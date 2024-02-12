@@ -5,7 +5,6 @@ const coachesModule = {
 		return {
 			coaches: [],
 			lastFetch: null,
-			error: null,
 		}
 	},
 	mutations: {

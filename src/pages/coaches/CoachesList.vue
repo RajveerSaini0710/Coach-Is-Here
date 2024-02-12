@@ -9,8 +9,8 @@
 					<BaseButton primeVueButton outlined label="Refresh" class="flex-grow" @click="loadCoaches(true)"> </BaseButton>
 					<BaseButton v-if="!isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
 				</div>
-				<p v-if="isError" class="text-sm text-red-500 my-6">{{ error }} / Something is wrong please try again later ...</p>
-				<div v-else-if="isDataLoaded">
+
+				<div v-if="isDataLoaded">
 					<BaseSpinner></BaseSpinner>
 				</div>
 				<ul v-else-if="hasCoaches">

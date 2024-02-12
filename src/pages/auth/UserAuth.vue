@@ -160,17 +160,19 @@ export default {
 		},
 		async submitData() {
 			this.validLoginData()
+			const payload = {
+				email: this.data.email,
+				password: this.data.password,
+			}
 
-			if (!this.isFormValid) {
-				window.scrollTo({ top: 0, behavior: 'smooth' })
-			} else if (this.mode === 'login') {
+			if (this.mode === 'login') {
+				this.isLoading = true
+				await this.$store.dispatch('login', payload)
+				this.isLoading = false
 				console.log('login')
 			} else {
 				this.isLoading = true
-				await this.$store.dispatch('signup', {
-					email: this.data.email,
-					password: this.data.password,
-				})
+				await this.$store.dispatch('signup', payload)
 				this.isLoading = false
 			}
 		},
