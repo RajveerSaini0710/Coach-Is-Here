@@ -7,7 +7,8 @@
 			<BaseCard>
 				<div class="flex">
 					<BaseButton primeVueButton outlined label="Refresh" class="flex-grow" @click="loadCoaches(true)"> </BaseButton>
-					<BaseButton v-if="!isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
+					<BaseButton v-if="!isLoggedIn" link to="/auth">Login</BaseButton>
+					<BaseButton v-if="isLoggedIn && !isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
 				</div>
 
 				<div v-if="isDataLoaded">
@@ -41,6 +42,9 @@ export default {
 	},
 
 	computed: {
+		isLoggedIn() {
+			return this.$store.getters.isAuthenticated
+		},
 		filteredCoaches() {
 			const coaches = this.$store.getters.coaches
 			return coaches.filter((coach) => {

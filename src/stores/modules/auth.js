@@ -85,6 +85,9 @@ const authModule = {
 		token(state) {
 			return state.token
 		},
+		isAuthenticated(state) {
+			return !!state.token
+		},
 		showError(state) {
 			const error = { message: state.errorMessage, code: state.errorCode }
 			return error
