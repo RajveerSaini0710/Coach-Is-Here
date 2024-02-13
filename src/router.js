@@ -27,7 +27,7 @@ const router = createRouter({
 			path: '/register',
 			name: 'CoachesRegistration',
 			component: () => import('./pages/coaches/CoachRegistration.vue'),
-			meta: { requireAuth: true },
+			meta: { requireAuth: true, isRegistered: true },
 		},
 		{
 			path: '/requests',
@@ -51,6 +51,8 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
 	if (to.meta.requireAuth && !store.getters.isAuthenticated) {
 		next('/auth')
+	} else if (to.meta.isRegistered && store.getters.userId) {
+		next('/coaches')
 	} else if (to.meta.requireUnauth && store.getters.isAuthenticated) {
 		next('/coaches')
 	} else {
