@@ -1,5 +1,13 @@
+import { defineAsyncComponent } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import store from './stores/store.js'
+
+const CoachDetail = () => import('./pages/coaches/CoachDetail.vue')
+const ContactCoach = () => import('./pages/requests/ContactCoach.vue')
+const CoachRegistration = () => import('./pages/coaches/CoachRegistration.vue')
+const RequestReceived = () => import('./pages/requests/RequestReceived.vue')
+const UserAuth = () => import('./pages/auth/UserAuth.vue')
+const NotFoundPage = () => import('./pages/NotFound.vue')
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -14,37 +22,37 @@ const router = createRouter({
 			path: '/coaches/:id',
 			name: 'CoachDetail',
 			props: true,
-			component: () => import('./pages/coaches/CoachDetail.vue'),
+			component: CoachDetail,
 			children: [
 				{
 					path: 'contact',
 					name: 'ContactCoach',
-					component: () => import('./pages/requests/ContactCoach.vue'),
+					component: ContactCoach,
 				},
 			],
 		},
 		{
 			path: '/register',
 			name: 'CoachesRegistration',
-			component: () => import('./pages/coaches/CoachRegistration.vue'),
+			component: CoachRegistration,
 			meta: { requireAuth: true, isRegistered: true },
 		},
 		{
 			path: '/requests',
 			name: 'RequestReceived',
-			component: () => import('./pages/requests/RequestReceived.vue'),
+			component: RequestReceived,
 			meta: { requireAuth: true },
 		},
 		{
 			path: '/auth',
 			name: 'UserAuth',
-			component: () => import('./pages/auth/UserAuth.vue'),
+			component: UserAuth,
 			meta: { requireUnauth: true },
 		},
 		{
 			path: '/:notFound(.*)',
 			name: 'NotFoundPage',
-			component: () => import('./pages/NotFound.vue'),
+			component: NotFoundPage,
 		},
 	],
 })
