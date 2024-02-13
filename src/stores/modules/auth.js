@@ -54,8 +54,7 @@ const authModule = {
 			await axios
 				.post(url, Payload)
 				.then((res) => {
-					// const expiresIn = +res.data.expiresIn * 1000
-					const expiresIn = 5000
+					const expiresIn = +res.data.expiresIn * 1000
 					const expirationDate = new Date().getTime() + expiresIn
 
 					localStorage.setItem('token', res.data.idToken)
