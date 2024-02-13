@@ -1,10 +1,10 @@
 <template>
 	<BaseCard>
-		<h2 class="mb-2 text-purple-600 font-semibold indent-4">Find Your Coach</h2>
-		<div class="flex">
-			<div v-for="expert of expertise" :key="expert" class="text-purple-700 py-2 ml-4">
+		<h2 class="mb-2 text-purple-600 font-bold md:indent-5 text-center md:text-left">Filter Your Coach</h2>
+		<div class="flex justify-evenly items-center md:justify-normal">
+			<div v-for="expert of expertise" :key="expert" class="text-purple-700 py-2 md:ml-4 flex flex-col items-center md:block">
 				<Checkbox v-model="filters" :id="expert.id" :value="expert.name" class="mr-2" name="Expertise" @change="setFilter" />
-				<label :for="expert.id"> {{ expert.name }} </label>
+				<label class="block md:inline-block" :for="expert.id"> {{ expert.name }} </label>
 			</div>
 		</div>
 	</BaseCard>
