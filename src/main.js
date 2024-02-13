@@ -6,6 +6,7 @@ import Lara from '@/presets/lara'
 import router from './router.js'
 import store from '../src/stores/store.js'
 import 'primevue/resources/themes/lara-light-purple/theme.css'
+import 'primeicons/primeicons.css'
 
 //Global  components
 import BaseCard from '../src/components/ui/BaseCard.vue'
