@@ -86,13 +86,14 @@ const authModule = {
 
 			const tokenExpiration = +expiresIn - new Date().getTime()
 
-			if (tokenExpiration < 0) {
+			if (tokenExpiration <= 0) {
+				context.dispatch('autoLogout')
 				return
 			}
 
 			timer = setTimeout(() => {
 				context.dispatch('autoLogout')
-			}, expiresIn)
+			}, tokenExpiration)
 
 			if (token && userId) {
 				context.commit('setUser', {
