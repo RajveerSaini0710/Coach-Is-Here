@@ -1,21 +1,40 @@
 <template>
-	<header>
-		<nav>
-			<h1 class="text-2xl">
-				<router-link to="/"> Coach Is Here </router-link>
+	<header class="w-full h-16 md:h-20 bg-violet-900 flex justify-center items-center">
+		<nav class="w-[96%] flex justify-between items-center">
+			<h1 class="text-xs md:text-2xl sm:text-sm font-[Sixtyfour]" style="word-spacing: -6px">
+				<router-link class="text-white" to="/"> Coach Is Here </router-link>
 			</h1>
-			<ul>
-				<li>
-					<router-link to="/coaches"> All Coaches </router-link>
+			<ul class="flex justify-center items-center">
+				<li class="m-1">
+					<router-link
+						class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
+						to="/coaches"
+					>
+						All Coaches
+					</router-link>
 				</li>
-				<li v-if="isLoggedIn">
-					<router-link to="/requests"> Requests </router-link>
+				<li v-if="isLoggedIn" class="m-1">
+					<router-link
+						class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
+						to="/requests"
+					>
+						Requests
+					</router-link>
 				</li>
-				<li v-else>
-					<router-link to="/auth"> Login </router-link>
+				<li v-else class="m-1">
+					<router-link
+						class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
+						to="/auth"
+					>
+						Login
+					</router-link>
 				</li>
-				<li v-if="isLoggedIn">
-					<BaseButton customButton class="text-pink-300 py-3 px-6 hover:border border-pink-300" @click="logout">
+				<li v-if="isLoggedIn" class="m-1">
+					<BaseButton
+						customButton
+						class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
+						@click="logout"
+					>
 						Logout</BaseButton
 					>
 				</li>
@@ -42,65 +61,4 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
-
-header {
-	width: 100%;
-	height: 5rem;
-	background-color: #3d008d;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-header a {
-	text-decoration: none;
-	color: #f391e3;
-	display: inline-block;
-	padding: 0.75rem 1.5rem;
-	border: 1px solid transparent;
-}
-
-a:active,
-a:hover,
-a.router-link-active {
-	border: 1px solid #f391e3;
-}
-
-h1 {
-	font-family: 'Sixtyfour', sans-serif;
-	word-spacing: -10px;
-	margin: 0;
-}
-
-h1 a {
-	color: white;
-	margin: 0;
-}
-
-h1 a:hover,
-h1 a:active,
-h1 a.router-link-active {
-	border-color: transparent;
-}
-
-header nav {
-	width: 97%;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-header ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-li {
-	margin: 0 0.5rem;
-}
 </style>
