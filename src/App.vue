@@ -1,5 +1,6 @@
 <template>
 	<TheHeader></TheHeader>
+	{{ autoLogout }}
 	<router-view v-slot="slotProps">
 		<transition name="route" mode="out-in">
 			<component :is="slotProps.Component"></component>
@@ -14,8 +15,20 @@ export default {
 	components: {
 		TheHeader,
 	},
+	computed: {
+		autoLogout() {
+			return this.$store.getters.autoLogout
+		},
+	},
 	created() {
 		this.$store.dispatch('autoLogin')
+	},
+	watch: {
+		autoLogout(curVal, oldVal) {
+			if (curVal && curVal !== oldVal) {
+				this.$router.replace('/coaches')
+			}
+		},
 	},
 }
 </script>

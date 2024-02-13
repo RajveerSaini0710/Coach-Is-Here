@@ -9,16 +9,21 @@ const authModule = {
 			token: null,
 			errorMessage: null,
 			errorCode: null,
+			logout: false,
 		}
 	},
 	mutations: {
 		setUser(state, payload) {
 			state.token = payload.token
 			state.userId = payload.userId
+			state.logout = false
 		},
 		setError(state, error) {
 			state.errorMessage = error.message
 			state.errorCode = error.code
+		},
+		setLogout(state) {
+			state.logout = true
 		},
 	},
 	actions: {
@@ -58,7 +63,7 @@ const authModule = {
 					localStorage.setItem('expiresIn', expirationDate)
 
 					timer = setTimeout(() => {
-						context.dispatch('logout')
+						context.dispatch('autoLogout')
 					}, expiresIn)
 
 					const payload = {
@@ -87,7 +92,7 @@ const authModule = {
 			}
 
 			timer = setTimeout(() => {
-				context.dispatch('logout')
+				context.dispatch('autoLogout')
 			}, expiresIn)
 
 			if (token && userId) {
@@ -110,6 +115,10 @@ const authModule = {
 			}
 			context.commit('setUser', payload)
 		},
+		autoLogout(context) {
+			context.dispatch('logout')
+			context.commit('setLogout')
+		},
 	},
 	getters: {
 		userId(state) {
@@ -124,6 +133,9 @@ const authModule = {
 		showError(state) {
 			const error = { message: state.errorMessage, code: state.errorCode }
 			return error
+		},
+		autoLogout(state) {
+			return state.logout
 		},
 	},
 }
