@@ -1,6 +1,6 @@
 <template>
 	<section class="flex md:flex-col items-center">
-		<BaseCard class="flex flex-col items-center md:block">
+		<BaseCard class="flex flex-col items-center md:block mt-10 md:mt-0">
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">{{ submitButtonCaption }} Page</h1>
 			<div v-if="isLoading">
 				<BaseSpinner></BaseSpinner>
