@@ -11,7 +11,7 @@
 			:severity="severity"
 			:badgeClass="badgeClass"
 			:loading="loading"
-			class="text-purple-800 py-3 px-6 rounded-3xl mr-2 border-purple-600 hover:bg-purple-50 active:bg-purple-50"
+			class="text-purple-800 md:py-3 md:px-4 text-xs md:text-base rounded-3xl md:mr-2 border-purple-600 hover:bg-purple-50 active:bg-purple-50"
 		/>
 	</div>
 	<div v-else-if="!link && !outlinedLink && !primeVueButton && !customButton && normalButton">
@@ -36,7 +36,7 @@
 	</div>
 	<div v-else>
 		<router-link
-			class="py-3 px-6 bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
+			class="py-2 px-3 md:py-3 md:px-4 text-xs md:text-base bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl md:mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
 			:to="to"
 		>
 			<slot></slot>

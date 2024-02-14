@@ -5,8 +5,24 @@
 		</section>
 		<section class="flex justify-center">
 			<BaseCard>
-				<div class="flex">
-					<BaseButton primeVueButton outlined label="Refresh" class="flex-grow" @click="loadCoaches(true)"> </BaseButton>
+				<div class="flex justify-between">
+					<BaseButton
+						v-if="screenWidth > 500"
+						primeVueButton
+						outlined
+						label="Refresh"
+						class="flex-grow"
+						@click="loadCoaches(true)"
+					>
+					</BaseButton>
+					<BaseButton
+						v-else
+						customButton
+						class="py-2 px-3 md:py-3 md:px-4 text-xs font-bold border border-purple-700 text-purple-700 cursor-pointer rounded-xl hover:bg-purple-50"
+						@click="loadCoaches(true)"
+					>
+						Refresh
+					</BaseButton>
 					<BaseButton v-if="isLoggedIn && !isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
 				</div>
 
@@ -75,7 +91,15 @@ export default {
 				Backend: true,
 				Career: true,
 			},
+			screenWidth: 0,
 		}
+	},
+	mounted() {
+		this.updateScreenSize()
+		window.addEventListener('resize', this.updateScreenSize)
+	},
+	beforeUnmount() {
+		window.removeEventListener('resize', this.updateScreenSize)
 	},
 	created() {
 		this.loadCoaches()
@@ -93,6 +117,9 @@ export default {
 			this.isDataLoaded = true
 			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh })
 			this.isDataLoaded = false
+		},
+		updateScreenSize() {
+			this.screenWidth = window.innerWidth
 		},
 	},
 }
