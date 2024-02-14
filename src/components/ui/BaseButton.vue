@@ -37,6 +37,7 @@
 	<div v-else>
 		<router-link
 			class="py-2 px-3 md:py-3 md:px-4 text-xs md:text-base bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl md:mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
+			:link="link"
 			:to="to"
 		>
 			<slot></slot>

@@ -35,7 +35,7 @@ const router = createRouter({
 			path: '/register',
 			name: 'CoachesRegistration',
 			component: CoachRegistration,
-			meta: { requireAuth: true, isRegistered: true },
+			meta: { requireAuth: true },
 		},
 		{
 			path: '/requests',
@@ -59,8 +59,6 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
 	if (to.meta.requireAuth && !store.getters.isAuthenticated) {
 		next('/auth')
-	} else if (to.meta.isRegistered && store.getters.userId) {
-		next('/coaches')
 	} else if (to.meta.requireUnauth && store.getters.isAuthenticated) {
 		next('/coaches')
 	} else {
