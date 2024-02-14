@@ -1,15 +1,15 @@
 <template>
 	<section class="flex justify-center">
-		<BaseCard>
+		<BaseCard class="flex flex-col items-center md:block">
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Register As A Coach :</h1>
-			<div class="flex items-center mb-4 flex-wrap ml-4">
+			<div class="w-11/12 flex items-center justify-center md:justify-normal mb-4 flex-wrap md:ml-4">
 				<formInput
 					@keypress="isLetter($event)"
 					label="First Name"
 					v-model.trim="data.firstName"
 					size="small"
 					placeholder="John"
-					class="mr-10"
+					class="md:mr-10 w-full md:w-auto"
 					:errorMessage="formError.firstName"
 				/>
 				<formInput
@@ -18,7 +18,7 @@
 					v-model.trim="data.middleName"
 					size="small"
 					placeholder="Martus"
-					class="mr-10"
+					class="md:mr-10 w-full md:w-auto"
 				/>
 				<formInput
 					@keypress="isLetter($event)"
@@ -27,9 +27,10 @@
 					size="small"
 					placeholder="Doe"
 					:errorMessage="formError.lastName"
+					class="w-full md:w-auto"
 				/>
 			</div>
-			<div class="flex items-center mb-10 flex-wrap ml-4">
+			<div class="flex items-center mb-10 flex-wrap md:ml-4 w-11/12">
 				<formInput
 					@keypress="isNumber($event)"
 					type="number"
@@ -37,7 +38,7 @@
 					v-model.number="data.phoneNumber"
 					size="small"
 					placeholder="9999999999"
-					class="mr-12"
+					class="md:mr-12 w-full md:w-auto"
 					:errorMessage="formError.phoneNumber"
 				/>
 				<formInput
@@ -47,13 +48,14 @@
 					size="small"
 					placeholder="25"
 					:errorMessage="formError.hourlyRate"
+					class="w-full md:w-auto"
 				/>
 			</div>
 			<divider align="left" type="solid">
 				<b class="text-purple-600">Discription</b>
 			</divider>
 
-			<div class="card flex ml-6 mb-4">
+			<div class="card flex md:ml-6 mb-4 w-11/12 md:w-auto">
 				<Textarea v-model="data.discription" rows="5" cols="50" placeholder="About yourself ..." />
 			</div>
 			<InlineMessage v-if="!isFormDataValid" class="text-xs text-red-600 ml-4">{{ formError.discription }}</InlineMessage>
@@ -61,8 +63,12 @@
 			<divider align="left" type="solid">
 				<b class="text-purple-600">Areas of Expertise</b>
 			</divider>
-			<div class="flex gap-8 items-center mb-10 flex-wrap">
-				<div v-for="(expert, index) in expertise" :key="index" class="text-purple-700 py-2 ml-4">
+			<div class="flex md:gap-8 items-center md:mb-10 flex-wrap w-11/12 justify-evenly md:justify-normal my-4">
+				<div
+					v-for="(expert, index) in expertise"
+					:key="index"
+					class="text-purple-700 md:py-2 md:ml-4 flex flex-col items-center justify-evenly md:block"
+				>
 					<Checkbox v-model="data.selectedArea" :id="expert.id" :value="expert.name" class="mr-2" name="weekdays" />
 					<label :for="expert.id">{{ expert.name }}</label>
 				</div>
@@ -71,11 +77,22 @@
 			<divider align="left" type="solid">
 				<b class="text-purple-600">Date Of Birth</b>
 			</divider>
-			<div class="mb-2">
-				<Calendar v-model="data.dob" id="myCalendar" inputId="Birth_date" showIcon iconDisplay="input" class="ml-6" />
+			<div class="mb-2 flex flex-col md:block items-center w-11/12">
+				<Calendar
+					v-model="data.dob"
+					id="myCalendar"
+					inputId="Birth_date"
+					showIcon
+					iconDisplay="input"
+					class="md:ml-6 w-full md:w-auto mb-6 md:mb-0"
+				/>
 				<InlineMessage v-if="!isFormDataValid" class="text-xs ml-6 text-red-600">{{ formError.dob }}</InlineMessage>
 
-				<BaseButton class="font-bold flex items-center justify-end" normalButton @click.prevent="submitFormData">
+				<BaseButton
+					class="font-bold md:flex md:items-center md:justify-end mb-4 md:mb-0"
+					normalButton
+					@click.prevent="submitFormData"
+				>
 					Submit
 				</BaseButton>
 			</div>
