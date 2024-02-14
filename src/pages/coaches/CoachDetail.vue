@@ -9,8 +9,8 @@
 		<section class="flex justify-center">
 			<BaseCard>
 				<header>
-					<h2 class="mb-4 font-black text-xl">Intrested? reach out now!</h2>
-					<BaseButton class="mb-2" link :to="contactLink"> Contact </BaseButton>
+					<h2 class="md:mb-4 my-2 ml-2 md:ml-0 font-black md:text-xl">Intrested? Contact Us</h2>
+					<BaseButton class="mb-2 ml-2" link :to="contactLink"> Contact </BaseButton>
 				</header>
 				<router-view></router-view>
 			</BaseCard>

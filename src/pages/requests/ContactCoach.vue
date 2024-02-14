@@ -1,7 +1,7 @@
 <template>
 	<section class="flex justify-center">
 		<BaseCard>
-			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Intrested? Reach Out Now! :</h1>
+			<h1 class="text-purple-700 inline-block font-black text-lg md:text-2xl mb-6">Intrested? Reach Out Now! :</h1>
 			<div class="flex items-center mb-4 flex-wrap ml-4">
 				<formInput
 					label="Email ID"
@@ -15,12 +15,12 @@
 					<b class="text-purple-600">Message</b>
 				</divider>
 
-				<div class="card flex ml-6 mb-4">
+				<div class="card flex md:ml-6 mb-4 w-full">
 					<Textarea v-model="data.message" rows="5" cols="50" placeholder="Message ..." />
 				</div>
 				<InlineMessage v-if="!isFormDataValid" class="text-xs text-red-600 ml-4">{{ formError.message }}</InlineMessage>
 			</div>
-			<BaseButton class="font-bold flex items-center justify-end" normalButton @click.prevent="submitFormData">
+			<BaseButton class="font-bold flex items-center justify-end mb-2" normalButton @click.prevent="submitFormData">
 				Send Request
 			</BaseButton>
 		</BaseCard>
