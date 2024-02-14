@@ -161,7 +161,7 @@ export default {
 				this.isLoading = true
 				this.$store.dispatch('login', payload)
 				this.isLoading = false
-				// this.$router.replace('/coaches')
+				this.$router.replace('/coaches')
 			} else {
 				this.isLoading = true
 				this.$store.dispatch('signup', payload)
