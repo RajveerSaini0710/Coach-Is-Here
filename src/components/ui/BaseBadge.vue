@@ -5,7 +5,7 @@
 			:removable="removable"
 			:icon="icon"
 			:image="image"
-			class="bg-gray-300 text-black inline-block text-sm font-medium my-1"
+			class="bg-gray-300 text-black inline-block text-[10px] font-semibold md:font-medium md:text-sm my-2 py-2 md:px-4"
 			:class="type"
 		/>
 	</div>

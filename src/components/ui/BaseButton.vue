@@ -28,7 +28,7 @@
 	</div>
 	<div v-else-if="!link && !primeVueButton && !normalButton && !customButton && outlinedLink">
 		<router-link
-			class="flex text-purple-800 py-3 px-6 rounded-3xl mr-2 border border-purple-600 hover:bg-purple-50 active:bg-purple-50"
+			class="flex text-purple-800 py-2 px-3 md:py-3 md:px-4 text-xs md:text-base rounded-3xl mr-2 border border-purple-600 hover:bg-purple-50 active:bg-purple-50"
 			:to="to"
 		>
 			<slot></slot>
