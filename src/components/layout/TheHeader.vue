@@ -12,11 +12,17 @@
 				<transition name="mobileMenu">
 					<div
 						v-if="menuOpen"
-						class="fixed top-0 bottom-0 left-32 right-0 bg-violet-800 bg-opacity-90 flex flex-col justify-start items-end z-50"
+						class="fixed top-0 bottom-0 left-40 right-0 bg-violet-800 bg-opacity-90 flex flex-col justify-start items-start z-50"
 					>
-						<i v-if="menuOpen" class="pi pi-times text-white font-bold text-xl cursor-pointer mr-6 mt-6" @click="toggleMenu">
-						</i>
-						<div class="mr-10 mt-8">
+						<div class="w-full flex justify-end">
+							<i
+								v-if="menuOpen"
+								class="pi pi-times text-white font-bold text-xl mt-6 mr-4 cursor-pointer"
+								@click="toggleMenu"
+							>
+							</i>
+						</div>
+						<div class="mt-12 ml-6">
 							<ul class="flex flex-col items-start">
 								<li @click="toggleMenu">
 									<router-link class="text-white text-xl font-bold hover:text-violet-100" to="/coaches">
