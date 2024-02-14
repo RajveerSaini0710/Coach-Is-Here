@@ -7,11 +7,37 @@
 			<div v-if="screenWidth < 500">
 				<transition name="fade">
 					<i v-if="!menuOpen" class="pi pi-align-right text-white text-xl mr-2 cursor-pointer" @click="toggleMenu"> </i>
-					<div v-else>
-						<i class="pi pi-times text-white text-xl mr-2 cursor-pointer" @click="toggleMenu"> </i>
-						<ul>
-							<li>Home</li>
-						</ul>
+				</transition>
+				<!-- menu options  -->
+				<transition name="mobileMenu">
+					<div
+						v-if="menuOpen"
+						class="fixed top-0 bottom-0 left-32 right-0 bg-violet-800 bg-opacity-90 flex flex-col justify-start items-end z-50"
+					>
+						<i v-if="menuOpen" class="pi pi-times text-white font-bold text-xl cursor-pointer mr-6 mt-6" @click="toggleMenu">
+						</i>
+						<div class="mr-10 mt-8">
+							<ul class="flex flex-col items-start">
+								<li @click="toggleMenu">
+									<router-link class="text-white text-xl font-bold hover:text-violet-100" to="/coaches">
+										All Coaches
+									</router-link>
+								</li>
+								<li v-if="isLoggedIn" class="mt-4" @click="toggleMenu">
+									<router-link class="text-white text-xl font-bold hover:text-purple-200" to="/requests">
+										Requests
+									</router-link>
+								</li>
+								<li v-else class="mt-4" @click="toggleMenu">
+									<router-link class="text-white text-xl font-bold hover:text-purple-200" to="/auth"> Login </router-link>
+								</li>
+								<li v-if="isLoggedIn" class="mt-4" @click="toggleMenu">
+									<BaseButton customButton class="text-white text-xl font-bold hover:text-purple-200" @click="logout">
+										Logout</BaseButton
+									>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</transition>
 			</div>
@@ -101,5 +127,23 @@ export default {
 .fade-enter,
 .fade-leave-to {
 	opacity: 0;
+}
+
+.mobileMenu-enter-active,
+.mobileMenu-leave-active {
+	transition: all 0.8s ease-out;
+}
+.mobileMenu-enter-from {
+	opacity: 0;
+	transform: translateX(100%);
+}
+.mobileMenu-leave-to {
+	opacity: 0;
+	transform: translateX(100%);
+}
+.mobileMenu-enter-to,
+.mobileMenu-leave-from {
+	opacity: 1;
+	transform: translateX(0);
 }
 </style>
