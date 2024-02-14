@@ -16,7 +16,7 @@
 	</div>
 	<div v-else-if="!link && !outlinedLink && !primeVueButton && !customButton && normalButton">
 		<button
-			class="py-3 px-6 bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
+			class="py-2 px-6 md:py-3 font-bold md:px-6 text-sm md:text-base bg-purple-700 border border-purple-700 text-white cursor-pointer rounded-3xl mr-2 inline-block hover:bg-purple-900 hover:border-purple-900 active:bg-purple-900 active:border-purple-900"
 		>
 			<slot></slot>
 		</button>

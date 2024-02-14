@@ -1,11 +1,11 @@
 <template>
-	<section class="flex flex-col items-center">
-		<BaseCard>
+	<section class="flex md:flex-col items-center">
+		<BaseCard class="flex flex-col items-center md:block">
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">{{ submitButtonCaption }} Page</h1>
 			<div v-if="isLoading">
 				<BaseSpinner></BaseSpinner>
 			</div>
-			<div v-else class="flex flex-col">
+			<div v-else class="flex flex-col flex-wrap w-full">
 				<formInput
 					@keypress="isEmail($event)"
 					label="Email"
@@ -44,8 +44,10 @@
 						formError.confirmPassword
 					}}</InlineMessage>
 				</div>
-				<div class="flex mb-6">
-					<BaseButton normalButton class="mr-4 text-base" @click="submitData">{{ submitButtonCaption }}</BaseButton>
+				<div class="flex flex-col items-center mb-6 md:flex-row">
+					<BaseButton normalButton class="md:mr-4 text-base mb-4 md:mb-0" @click="submitData">{{
+						submitButtonCaption
+					}}</BaseButton>
 					<BaseButton
 						customButton
 						class="border-none px-4 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
