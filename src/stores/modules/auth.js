@@ -7,8 +7,6 @@ const authModule = {
 		return {
 			userId: null,
 			token: null,
-			errorMessage: null,
-			errorCode: null,
 			logout: false,
 		}
 	},
@@ -17,10 +15,6 @@ const authModule = {
 			state.token = payload.token
 			state.userId = payload.userId
 			state.logout = false
-		},
-		setError(state, error) {
-			state.errorMessage = error.message
-			state.errorCode = error.code
 		},
 		setLogout(state) {
 			state.logout = true
@@ -131,10 +125,7 @@ const authModule = {
 		isAuthenticated(state) {
 			return !!state.token
 		},
-		showError(state) {
-			const error = { message: state.errorMessage, code: state.errorCode }
-			return error
-		},
+
 		autoLogout(state) {
 			return state.logout
 		},

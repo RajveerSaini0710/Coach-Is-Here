@@ -58,16 +58,6 @@
 				</div>
 			</div>
 		</BaseCard>
-		<div class="text-sm text-red-500">
-			<InlineMessage class="block mb-2" v-if="showError.message">
-				Message:
-				{{ showError.message }}
-			</InlineMessage>
-			<InlineMessage v-if="showError.code">
-				ErrorCode:
-				{{ showError.code }}
-			</InlineMessage>
-		</div>
 	</section>
 </template>
 
@@ -137,7 +127,6 @@ export default {
 				return 'Login Instead'
 			}
 		},
-		...mapGetters(['showError']),
 	},
 	methods: {
 		validLoginData() {
@@ -159,27 +148,25 @@ export default {
 				this.formError.confirmPassword = "Password Don't Match"
 				this.isFormValid = false
 			}
+			return this.isFormValid
 		},
-		async submitData() {
+		submitData() {
 			this.validLoginData()
 			const payload = {
 				email: this.data.email,
 				password: this.data.password,
 			}
-			try {
-				if (this.mode === 'login') {
-					this.isLoading = true
-					await this.$store.dispatch('login', payload)
-					this.isLoading = false
-				} else {
-					this.isLoading = true
-					await this.$store.dispatch('signup', payload)
-					this.mode = 'login'
-					this.isLoading = false
-				}
-				this.$router.replace('/coaches')
-			} catch (err) {
-				console.log(err.message)
+
+			if (this.mode === 'login') {
+				this.isLoading = true
+				this.$store.dispatch('login', payload)
+				this.isLoading = false
+				// this.$router.replace('/coaches')
+			} else {
+				this.isLoading = true
+				this.$store.dispatch('signup', payload)
+				this.isLoading = false
+				this.mode = 'login'
 			}
 		},
 		switchAuthMode() {
