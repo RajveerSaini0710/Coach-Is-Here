@@ -24,7 +24,7 @@
 						:areas="coach.areas"
 					/>
 				</ul>
-				<h3 v-else>No Coaches Found</h3>
+				<h3 v-else class="mt-6 mb-2 indent-1 text-red-500 text-sm">No Coaches Found</h3>
 			</BaseCard>
 		</section>
 	</div>
