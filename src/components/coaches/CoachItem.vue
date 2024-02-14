@@ -1,7 +1,7 @@
 <template>
 	<li class="my-4 border border-solid border-gray-700 rounded-xl md:p-4 p-2">
-		<h3 class="md:my-2 text-xl font-bold md:text-2xl md:font-semibold">{{ fullName }}</h3>
-		<h4 class="text-sm md:my-2 md:text-base font-medium">${{ rate }}/hour</h4>
+		<h3 class="md:my-2 text-xl font-bold md:text-3xl md:font-bold">{{ fullName }}</h3>
+		<h4 class="text-sm md:my-2 md:text-lg font-medium">${{ rate }}/hour</h4>
 		<div class="md:my-2 mb-4 flex gap-1">
 			<BaseBadge v-for="(area, index) in areas" :key="index" :label="area.toUpperCase()" :type="area" />
 		</div>
