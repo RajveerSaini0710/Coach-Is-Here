@@ -3,18 +3,11 @@
 		<section class="flex justify-center">
 			<CoachFilter @change-filter="setFilter" />
 		</section>
+
 		<section class="flex justify-center">
 			<BaseCard>
-				<div class="flex justify-between">
-					<BaseButton
-						v-if="screenWidth > 500"
-						primeVueButton
-						outlined
-						label="Refresh"
-						class="flex-grow"
-						@click="loadCoaches(true)"
-					>
-					</BaseButton>
+				<div class="flex">
+					<BaseButton v-if="screenWidth > 500" primeVueButton outlined label="Refresh" @click="loadCoaches(true)"> </BaseButton>
 					<BaseButton
 						v-else
 						customButton
@@ -23,6 +16,7 @@
 					>
 						Refresh
 					</BaseButton>
+					<CoachCount class="flex flex-grow ml-2" :coachCount="filteredCoaches.length" :coachActiveFilter="activeFilter" />
 					<BaseButton v-if="isLoggedIn && !isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
 				</div>
 
@@ -47,6 +41,7 @@
 </template>
 
 <script>
+import CoachCount from '../../components/coaches/CoachCount.vue'
 import CoachFilter from '../../components/coaches/CoachFilter.vue'
 import CoachItem from '../../components/coaches/CoachItem.vue'
 
@@ -54,6 +49,7 @@ export default {
 	components: {
 		CoachItem,
 		CoachFilter,
+		CoachCount,
 	},
 
 	computed: {
