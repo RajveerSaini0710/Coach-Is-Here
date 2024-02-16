@@ -24,7 +24,12 @@
 						</div>
 						<div class="mt-12 ml-6">
 							<ul class="flex flex-col items-start">
-								<li @click="toggleMenu">
+								<li v-if="isLoggedIn" class="mt-4" @click="toggleMenu">
+									<router-link class="text-white text-xl font-bold hover:text-purple-200" to="/profile">
+										My Profile
+									</router-link>
+								</li>
+								<li @click="toggleMenu" class="mt-4">
 									<router-link class="text-white text-xl font-bold hover:text-violet-100" to="/coaches">
 										All Coaches
 									</router-link>
@@ -73,15 +78,20 @@
 							Login
 						</router-link>
 					</li>
-					<li v-if="isLoggedIn" class="m-1">
-						<BaseButton
-							customButton
-							class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
-							@click="logout"
-						>
-							Logout</BaseButton
-						>
-					</li>
+					<li v-if="isLoggedIn" class="m-1"></li>
+					<router-link
+						to="/profile"
+						class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
+					>
+						My Profile</router-link
+					>
+					<BaseButton
+						customButton
+						class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
+						@click="logout"
+					>
+						Logout</BaseButton
+					>
 				</ul>
 			</div>
 		</nav>

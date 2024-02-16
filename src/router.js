@@ -8,6 +8,7 @@ const CoachRegistration = () => import('./pages/coaches/CoachRegistration.vue')
 const RequestReceived = () => import('./pages/requests/RequestReceived.vue')
 const UserAuth = () => import('./pages/auth/UserAuth.vue')
 const NotFoundPage = () => import('./pages/NotFound.vue')
+const MyProfile = () => import('./pages/profile/MyProfile.vue')
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -41,6 +42,12 @@ const router = createRouter({
 			path: '/requests',
 			name: 'RequestReceived',
 			component: RequestReceived,
+			meta: { requireAuth: true },
+		},
+		{
+			path: '/profile',
+			name: 'MyProfile',
+			component: MyProfile,
 			meta: { requireAuth: true },
 		},
 		{
