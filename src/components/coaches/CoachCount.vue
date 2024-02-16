@@ -1,28 +1,18 @@
 <template>
-	<section class="flex items-center">
-		<p class="text-purple-700 text-xs md:text-lg font-medium">Total Coaches : {{ coachCount }}</p>
-		<!-- <p class="text-purple-700 font-medium">Specialities : {{ coachSpecialties }}</p> -->
+	<section class="flex flex-col items-start">
+		<p class="text-purple-700 text-xs md:text-base font-medium">Total Coaches : {{ coachCount }}</p>
+		<p class="text-purple-700 text-xs md:text-base font-medium">Specialities : {{ coachSpecialties }}</p>
 	</section>
 </template>
 
 <script>
 export default {
-	props: ['coachCount'],
+	props: ['coachCount', 'coachActiveFilter'],
 	computed: {
 		coachSpecialties() {
-			let coaches = this.$store.getters.coaches
-			// let activeFilters = this.activeFilter
-			let areas = []
-			coaches.map((coach) => {
-				if (coach.areas) {
-					coach.areas.map((area) => {
-						if (!areas.includes(area)) {
-							areas.push(area)
-						}
-					})
-				}
-			})
-			return areas.join(' , ').toUpperCase()
+			let specialties = this.coachActiveFilter
+			let activeSpecialties = Object.keys(specialties).filter((key) => specialties[key])
+			return activeSpecialties.join(', ')
 		},
 	},
 
