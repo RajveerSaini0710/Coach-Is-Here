@@ -1,7 +1,7 @@
 <template>
 	<header class="w-full h-16 md:h-20 bg-violet-900 flex justify-center items-center">
 		<nav class="w-[96%] flex justify-between items-center">
-			<h1 class="text-xs md:text-2xl sm:text-sm font-[Sixtyfour]" style="word-spacing: -6px">
+			<h1 class="text-xs md:text-xl sm:text-sm font-[Sixtyfour]" style="word-spacing: -6px">
 				<router-link class="text-white" to="/"> Coach Is Here </router-link>
 			</h1>
 			<div v-if="screenWidth < 500">
@@ -59,7 +59,7 @@
 							class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
 							to="/coaches"
 						>
-							All Coaches
+							Coaches
 						</router-link>
 					</li>
 					<li v-if="isLoggedIn" class="m-1">
@@ -83,7 +83,7 @@
 							to="/profile"
 							class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
 						>
-							My Profile</router-link
+							Profile</router-link
 						>
 					</li>
 					<BaseButton
