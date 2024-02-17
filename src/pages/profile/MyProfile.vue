@@ -1,13 +1,13 @@
 <template>
 	<section class="w-full">
-		<div class="w-full h-44 md:mb-36 mb-24">
+		<div class="w-full h-44 md:h-72 md:mb-36 mb-24">
 			<div class="w-full h-full bg-purple-300 relative">
 				<img
 					src="../../assets/images/wp4327153-macbook-4k-wallpapers.jpg"
 					alt="wallpaper"
-					class="w-full h-full object-fill opacity-80 hover:opacity-100 transition-all duration-1000 ease-in static"
+					class="w-full h-full object-fill opacity-80 hover:opacity-100 transition-all duration-1000 ease-in"
 				/>
-				<div class="absolute md:top-28 md:left-16 md:w-44 md:h-44 top-36 left-4 w-20 h-20">
+				<div class="absolute md:top-60 md:left-16 md:w-44 md:h-44 top-36 left-4 w-20 h-20">
 					<img
 						src="https://firebasestorage.googleapis.com/v0/b/saini-lifters.appspot.com/o/folder%2Fwp4327153-macbook-4k-wallpapers.jpg?alt=media&token=95d5a8c7-0a03-4d4b-b7d3-b302fa6a2504"
 						alt="profile pic"
@@ -19,10 +19,10 @@
 				<div class="flex-grow">
 					<h1 class="md:text-4xl font-bold text-violet-700 protest-riot-regular">Rajveer Singh Saini</h1>
 					<p class="md:font-medium text-xs text-violet-500 md:mb-3 mb-1">Software Developer</p>
-					<div v-if="screenWidth > 600" class="font-light text-xs text-violet-500 md:flex">
-						<p class="mr-6 mb-1 md:mb-0 cursor-pointer"><i class="pi pi-google text-xs"> @rajveerssingh</i></p>
-						<p class="mr-6 mb-1 md:mb-0"><i class="pi pi-phone text-xs"> +91 8928333827</i></p>
-						<p class="mr-6 mb-1 md:mb-0"><i class="pi pi-home text-xs"> Kharghar</i></p>
+					<div v-if="screenWidth > 500" class="font-light text-xs text-violet-500 flex flex-wrap">
+						<p class="mr-6 mb-1 cursor-pointer"><i class="pi pi-google"> webdevloper0710@gmail.com</i></p>
+						<p class="mr-6 mb-1"><i class="pi pi-phone"> 8928333827</i></p>
+						<p class="mr-6 mb-1"><i class="pi pi-home"> Kharghar</i></p>
 					</div>
 				</div>
 
@@ -30,8 +30,8 @@
 					<i class="pi pi-user-edit md:text-3xl text-lg text-violet-700 cursor-pointer" @click="editData"></i>
 				</div>
 			</div>
-			<div v-if="screenWidth < 600" class="font-light text-xs text-violet-500 flex flex-wrap mt-2 justify-center gap-6">
-				<p class="cursor-pointer"><i class="pi pi-google text-xs"> @rajveerssingh</i></p>
+			<div v-if="screenWidth < 500" class="font-light text-xs text-violet-500 flex flex-wrap mt-2 justify-center gap-6">
+				<p class="cursor-pointer"><i class="pi pi-google text-xs"> webdevloper0710</i></p>
 				<p><i class="pi pi-phone text-xs"> 8928333827</i></p>
 				<p><i class="pi pi-home text-xs"> Kharghar</i></p>
 			</div>
@@ -52,7 +52,7 @@
 						<img
 							:src="image.src"
 							alt="profile pic"
-							class="md:w-20 md:h-20 w-10 h-10 object-cover rounded-full cursor-pointer"
+							class="md:w-20 md:h-20 w-14 h-14 object-cover rounded-full cursor-pointer"
 						/>
 						<p class="md:text-sm text-xs font-medium mt-4">Rajveer Singh</p>
 					</div>
