@@ -6,7 +6,7 @@
 
 		<section class="flex justify-center">
 			<BaseCard>
-				<div class="flex">
+				<div class="flex justify-between">
 					<BaseButton v-if="screenWidth > 500" primeVueButton outlined label="Refresh" @click="loadCoaches(true)"> </BaseButton>
 					<BaseButton
 						v-else
@@ -16,9 +16,21 @@
 					>
 						Refresh
 					</BaseButton>
-					<CoachCount class="flex flex-grow ml-2" :coachCount="filteredCoaches.length" :coachActiveFilter="activeFilter" />
+
+					<CoachCount
+						v-if="screenWidth > 500"
+						class="flex-grow ml-2"
+						:coachCount="filteredCoaches.length"
+						:coachActiveFilter="activeFilter"
+					/>
 					<BaseButton v-if="isLoggedIn && !isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
 				</div>
+				<CoachCount
+					v-if="screenWidth < 500"
+					class="mt-2 ml-2"
+					:coachCount="filteredCoaches.length"
+					:coachActiveFilter="activeFilter"
+				/>
 
 				<div v-if="isDataLoaded">
 					<BaseSpinner></BaseSpinner>
