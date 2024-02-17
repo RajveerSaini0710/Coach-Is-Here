@@ -1,5 +1,5 @@
 <template>
-	<section class="w-full h-lvh">
+	<section class="w-full h-svh">
 		<div class="w-full h-1/2 mb-36">
 			<div class="w-full h-full bg-purple-300 relative">
 				<img
@@ -39,10 +39,13 @@
 					assumenda.
 				</p>
 			</div>
-			<div class="flex justify-center gap-10 flex-wrap border p-6 rounded-lg h-full w-2/3">
-				<div v-for="image in images" :key="image.id" class="flex flex-col items-center">
-					<img :src="image.src" alt="profile pic" class="w-20 h-20 object-cover rounded-full" />
-					<p class="text-sm mt-4">Rajveer Singh</p>
+			<div class="border p-4 rounded-lg h-full w-2/3">
+				<p class="font-bold text-lg text-purple-700 mb-6">All Registered Coaches :</p>
+				<div class="flex gap-10 flex-wrap justify-evenly">
+					<div v-for="image in images" :key="image.id" class="flex flex-col">
+						<img :src="image.src" alt="profile pic" class="w-20 h-20 object-cover rounded-full cursor-pointer" />
+						<p class="text-sm font-medium mt-4">Rajveer Singh</p>
+					</div>
 				</div>
 			</div>
 		</div>
