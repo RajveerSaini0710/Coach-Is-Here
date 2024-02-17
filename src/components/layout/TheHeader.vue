@@ -78,14 +78,16 @@
 							Login
 						</router-link>
 					</li>
-					<li v-if="isLoggedIn" class="m-1"></li>
-					<router-link
-						to="/profile"
-						class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
-					>
-						My Profile</router-link
-					>
+					<li v-if="isLoggedIn" class="m-1">
+						<router-link
+							to="/profile"
+							class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
+						>
+							My Profile</router-link
+						>
+					</li>
 					<BaseButton
+						v-if="isLoggedIn"
 						customButton
 						class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
 						@click="logout"
