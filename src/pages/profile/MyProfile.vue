@@ -17,8 +17,8 @@
 			</div>
 			<div class="md:ml-64 md:mt-4 ml-28 mt-2 flex justify-center">
 				<div class="flex-grow">
-					<h1 class="md:text-4xl font-bold text-violet-700 protest-riot-regular">Rajveer Singh Saini</h1>
-					<p class="md:font-medium text-xs text-violet-500 md:mb-3 mb-1">Software Developer</p>
+					<h1 class="md:text-4xl font-bold text-violet-700 protest-riot-regular">{{ fullName }}</h1>
+					<p class="md:font-medium text-xs text-violet-500 md:mb-3 mb-1">{{ specialities }} Developer</p>
 					<div v-if="screenWidth > 500" class="font-light text-xs text-violet-500 flex flex-wrap">
 						<p class="mr-6 mb-1 cursor-pointer"><i class="pi pi-google"> webdevloper0710@gmail.com</i></p>
 						<p class="mr-6 mb-1"><i class="pi pi-phone"> 8928333827</i></p>
@@ -66,9 +66,17 @@
 import 'primeicons/primeicons.css'
 
 export default {
-	components: {},
+	computed: {
+		fullName() {
+			return `${this.myData?.firstName}  ${this.myData?.lastName}`
+		},
+		specialities() {
+			return this.myData?.areas.join(' & ').toUpperCase()
+		},
+	},
 	data() {
 		return {
+			myData: null,
 			images: [
 				{
 					id: 1,
@@ -94,7 +102,8 @@ export default {
 			screenWidth: 0,
 		}
 	},
-	mounted() {
+	created() {
+		this.loadCoaches()
 		this.updateScreenSize()
 		window.addEventListener('resize', this.updateScreenSize)
 	},
@@ -107,6 +116,10 @@ export default {
 		},
 		updateScreenSize() {
 			this.screenWidth = window.innerWidth
+		},
+		async loadCoaches(refresh = false) {
+			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh })
+			this.myData = this.$store.getters.profileData[0]
 		},
 	},
 }

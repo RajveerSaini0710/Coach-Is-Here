@@ -74,6 +74,12 @@ const coachesModule = {
 		coaches(state) {
 			return state.coaches
 		},
+		profileData(state, _getters, _rootState, rootGetters) {
+			const userId = rootGetters.userId
+			return state.coaches.filter((coach) => {
+				return coach.id === userId
+			})
+		},
 		hasCoaches(state) {
 			return state.coaches && state.coaches.length > 0
 		},
