@@ -53,9 +53,9 @@
 </template>
 
 <script>
-import CoachCount from '../../components/coaches/CoachCount.vue'
-import CoachFilter from '../../components/coaches/CoachFilter.vue'
-import CoachItem from '../../components/coaches/CoachItem.vue'
+import CoachCount from '@/components/coaches/CoachCount.vue'
+import CoachFilter from '@/components/coaches/CoachFilter.vue'
+import CoachItem from '@/components/coaches/CoachItem.vue'
 
 export default {
 	components: {

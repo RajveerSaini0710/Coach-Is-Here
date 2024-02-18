@@ -7,6 +7,7 @@ import router from './router.js'
 import store from '../src/stores/store.js'
 import 'primevue/resources/themes/lara-light-purple/theme.css'
 import 'primeicons/primeicons.css'
+import Checkbox from 'primevue/checkbox'
 
 //Global  components
 import BaseCard from '../src/components/ui/BaseCard.vue'
@@ -20,6 +21,7 @@ app.component('BaseCard', BaseCard)
 app.component('BaseButton', BaseButton)
 app.component('BaseBadge', BaseBadge)
 app.component('BaseSpinner', BaseSpinner)
+app.component('Checkbox', Checkbox)
 
 app.use(store)
 app.use(router)

@@ -3,7 +3,7 @@
 		<BaseCard class="flex flex-col items-center md:block">
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Register As A Coach :</h1>
 			<div class="w-11/12 flex items-center justify-center md:justify-normal mb-4 flex-wrap md:ml-4">
-				<formInput
+				<FormInput
 					@keypress="isLetter($event)"
 					label="First Name"
 					v-model.trim="data.firstName"
@@ -12,7 +12,7 @@
 					class="md:mr-10 w-full md:w-auto"
 					:errorMessage="formError.firstName"
 				/>
-				<formInput
+				<FormInput
 					@keypress="isLetter($event)"
 					label="Middle Name"
 					v-model.trim="data.middleName"
@@ -20,7 +20,7 @@
 					placeholder="Martus"
 					class="md:mr-10 w-full md:w-auto"
 				/>
-				<formInput
+				<FormInput
 					@keypress="isLetter($event)"
 					label="Last Name"
 					v-model.trim="data.lastName"
@@ -31,7 +31,7 @@
 				/>
 			</div>
 			<div class="flex items-center mb-10 flex-wrap md:ml-4 w-11/12">
-				<formInput
+				<FormInput
 					@keypress="isNumber($event)"
 					type="number"
 					label="Phone Number"
@@ -41,7 +41,7 @@
 					class="md:mr-12 w-full md:w-auto"
 					:errorMessage="formError.phoneNumber"
 				/>
-				<formInput
+				<FormInput
 					@keypress="isNumber($event)"
 					label="Hourly Rate"
 					v-model.number="data.hourlyRate"
@@ -102,18 +102,16 @@
 
 <script>
 import Textarea from 'primevue/textarea'
-import Checkbox from 'primevue/checkbox'
 import Divider from 'primevue/divider'
 import RadioButton from 'primevue/radiobutton'
 import Calendar from 'primevue/calendar'
 import InlineMessage from 'primevue/inlinemessage'
-import formInput from '../../components/ui/InputText.vue'
+import FormInput from '@/components/ui/InputText.vue' // Note: Changed to PascalCase for consistency
 // import axios from 'axios'
 
 export default {
 	components: {
-		formInput,
-		Checkbox,
+		FormInput,
 		Divider,
 		RadioButton,
 		Calendar,
