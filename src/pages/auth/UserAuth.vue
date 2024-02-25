@@ -45,18 +45,19 @@
 					}}</InlineMessage>
 				</div>
 				<div class="flex flex-col items-center mb-6 md:flex-row">
-					<BaseButton normalButton class="md:mr-4 text-base mb-4 md:mb-0" @click="submitData">{{
+					<BaseButton normalButton class="md:mr-4 text-base mb-4 md:mb-0" type="submit" @click="submitData">{{
 						submitButtonCaption
 					}}</BaseButton>
 					<BaseButton
 						customButton
-						class="border-none px-4 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
+						class="text-xs md:text-base border-none px-4 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
 						@click="switchAuthMode"
 					>
 						{{ switchModeButtonCaption }}
 					</BaseButton>
 				</div>
 			</div>
+			<p v-if="errorMessage" class="text-red-600 text-sm text-center">{{ errorMessage }}</p>
 		</BaseCard>
 	</section>
 </template>
@@ -91,6 +92,7 @@ export default {
 			isFormValid: true,
 			mode: 'login',
 			isLoading: false,
+			errorMessage: null,
 		}
 	},
 
@@ -112,7 +114,7 @@ export default {
 					email: null,
 					password: null,
 				}
-				return 'Signup Instead'
+				return "Don't have an account? Sign up instead"
 			} else {
 				this.formError = {
 					email: '',
@@ -144,36 +146,55 @@ export default {
 				this.formError.password = 'Please enter your Password correctely'
 				this.isFormValid = false
 			}
-			if (this.data.password !== this.data.confirmPassword) {
-				this.formError.confirmPassword = "Password Don't Match"
-				this.isFormValid = false
+			if (this.mode === 'signup') {
+				if (this.data.confirmPassword !== this.data.password) {
+					this.formError.confirmPassword = 'Passwords do not match'
+					this.isFormValid = false
+				}
 			}
 			return this.isFormValid
 		},
-		submitData() {
-			this.validLoginData()
-			const payload = {
-				email: this.data.email,
-				password: this.data.password,
-			}
-
-			if (this.mode === 'login') {
-				this.isLoading = true
-				this.$store.dispatch('login', payload)
-				this.isLoading = false
-				this.$router.replace('/coaches')
-			} else {
-				this.isLoading = true
-				this.$store.dispatch('signup', payload)
-				this.isLoading = false
-				this.mode = 'login'
+		async submitData() {
+			if (this.validLoginData()) {
+				const payload = {
+					email: this.data.email,
+					password: this.data.password,
+				}
+				if (this.mode === 'login') {
+					this.isLoading = true
+					await this.$store
+						.dispatch('login', payload)
+						.then(() => {
+							this.isLoading = false
+							this.$router.replace('/coaches')
+						})
+						.catch((error) => {
+							this.isLoading = false
+							this.errorMessage = error
+						})
+				} else {
+					this.isLoading = true
+					await this.$store
+						.dispatch('signup', payload)
+						.then(() => {
+							this.isLoading = false
+							this.mode = 'login'
+							this.errorMessage = null
+						})
+						.catch((error) => {
+							this.isLoading = false
+							this.errorMessage = error
+						})
+				}
 			}
 		},
 		switchAuthMode() {
 			if (this.mode === 'login') {
 				this.mode = 'signup'
+				this.errorMessage = null
 			} else {
 				this.mode = 'login'
+				this.errorMessage = null
 			}
 		},
 		isEmail(e) {

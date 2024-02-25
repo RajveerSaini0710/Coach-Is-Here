@@ -45,34 +45,28 @@ const authModule = {
 			if (mode === 'signup') {
 				url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDMt40w_cjbrbwzt2Kjf2dx2VIJM4Lx8NE'
 			}
-			await axios
-				.post(url, Payload)
-				.then((res) => {
-					// const expiresIn = 5000
-					const expiresIn = +res.data.expiresIn * 1000
-					const expirationDate = new Date().getTime() + expiresIn
+			try {
+				const res = await axios.post(url, Payload)
+				const expiresIn = +res.data.expiresIn * 1000
+				const expirationDate = new Date().getTime() + expiresIn
 
-					localStorage.setItem('token', res.data.idToken)
-					localStorage.setItem('userId', res.data.localId)
-					localStorage.setItem('expiresIn', expirationDate)
+				localStorage.setItem('token', res.data.idToken)
+				localStorage.setItem('userId', res.data.localId)
+				localStorage.setItem('expiresIn', expirationDate)
 
-					timer = setTimeout(() => {
-						context.dispatch('autoLogout')
-					}, expiresIn)
+				timer = setTimeout(() => {
+					context.dispatch('autoLogout')
+				}, expiresIn)
 
-					const payload = {
-						token: res.data.idToken,
-						userId: res.data.localId,
-					}
-					context.commit('setUser', payload)
-				})
-				.catch((err) => {
-					const errorPayload = {
-						message: err.response.data.error.message,
-						code: err.message,
-					}
-					context.commit('setError', errorPayload)
-				})
+				const payload = {
+					token: res.data.idToken,
+					userId: res.data.localId,
+				}
+				context.commit('setUser', payload)
+			} catch (err) {
+				const message = err.response ? err.response.data?.error?.message : 'Something went wrong! Please Try Again Later'
+				throw new Error(message)
+			}
 		},
 		autoLogin(context) {
 			const token = localStorage.getItem('token')
