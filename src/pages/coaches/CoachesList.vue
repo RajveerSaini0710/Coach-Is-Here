@@ -84,15 +84,9 @@ export default {
 		isCoach() {
 			return this.$store.getters.isCoach
 		},
-		isError() {
-			const error = this.$store.getters.showError
-			this.error = error
-			return this.$store.getters.showError
-		},
 	},
 	data() {
 		return {
-			error: null,
 			isDataLoaded: false,
 			activeFilter: {
 				Frontend: true,
