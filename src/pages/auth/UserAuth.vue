@@ -1,6 +1,6 @@
 <template>
 	<section class="flex md:flex-col items-center">
-		<BaseCard class="flex flex-col items-center md:block mt-10 md:mt-0">
+		<BaseCard class="flex flex-col items-center md:block mt-10">
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">{{ submitButtonCaption }} Page</h1>
 			<div v-if="isLoading">
 				<BaseSpinner></BaseSpinner>
@@ -44,7 +44,7 @@
 						formError.confirmPassword
 					}}</InlineMessage>
 				</div>
-				<div class="flex flex-col items-center mb-6 md:flex-row">
+				<div class="flex flex-col items-center mb-2 md:flex-row">
 					<BaseButton normalButton class="md:mr-4 text-base mb-4 md:mb-0" type="submit" @click="submitData">{{
 						submitButtonCaption
 					}}</BaseButton>
@@ -56,6 +56,9 @@
 						{{ switchModeButtonCaption }}
 					</BaseButton>
 				</div>
+				<BaseButton v-if="mode === 'login'" customButton @click="forgetPassword" class="ml-2 text-sm mb-4">
+					Forget Password ?
+				</BaseButton>
 			</div>
 			<p v-if="errorMessage" class="text-red-600 text-sm text-center">{{ errorMessage }}</p>
 		</BaseCard>
@@ -196,6 +199,9 @@ export default {
 				this.mode = 'login'
 				this.errorMessage = null
 			}
+		},
+		forgetPassword() {
+			this.$router.push('/forget-password')
 		},
 		isEmail(e) {
 			return String(e)

@@ -1,4 +1,3 @@
-import { defineAsyncComponent } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import store from './stores/store.js'
 
@@ -55,6 +54,11 @@ const router = createRouter({
 			name: 'UserAuth',
 			component: UserAuth,
 			meta: { requireUnauth: true },
+		},
+		{
+			path: '/forget-password',
+			name: 'ForgetPassword',
+			component: () => import('./pages/auth/ForgetPassword.vue'),
 		},
 		{
 			path: '/:notFound(.*)',
