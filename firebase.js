@@ -1,7 +1,7 @@
 // firebase.js
 
-import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js'
+import { getAuth, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDMt40w_cjbrbwzt2Kjf2dx2VIJM4Lx8NE',
@@ -16,4 +16,4 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig)
 const auth = getAuth(firebaseApp)
 
-export { auth, firebaseApp }
+export { auth, firebaseApp, sendPasswordResetEmail }

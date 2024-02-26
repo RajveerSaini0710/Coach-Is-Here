@@ -69,7 +69,6 @@
 import Password from 'primevue/password'
 import InlineMessage from 'primevue/inlinemessage'
 import formInput from '../../components/ui/inputtext.vue'
-import BaseButton from '../../components/ui/BaseButton.vue'
 import { mapGetters } from 'vuex'
 import Toast from 'primevue/toast'
 
@@ -77,7 +76,6 @@ export default {
 	components: {
 		Password,
 		formInput,
-		BaseButton,
 		Toast,
 	},
 	data() {

@@ -22,7 +22,7 @@
 		</button>
 	</div>
 	<div v-else-if="!link && !outlinedLink && !primeVueButton && !normalButton && customButton">
-		<button :class="customClass">
+		<button :class="customClass" :disabled="disabled">
 			<slot></slot>
 		</button>
 	</div>
