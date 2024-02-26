@@ -50,7 +50,7 @@
 					}}</BaseButton>
 					<BaseButton
 						customButton
-						class="text-xs md:text-base border-none px-4 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
+						class="text-base border-none px-4 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
 						@click="switchAuthMode"
 					>
 						{{ switchModeButtonCaption }}
