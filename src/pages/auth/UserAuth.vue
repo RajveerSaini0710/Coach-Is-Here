@@ -56,8 +56,13 @@
 						{{ switchModeButtonCaption }}
 					</BaseButton>
 				</div>
-				<BaseButton v-if="mode === 'login'" customButton @click="forgetPassword" class="ml-2 text-sm mb-4">
-					Forget Password ?
+				<BaseButton
+					v-if="mode === 'login'"
+					customButton
+					@click="forgetPassword"
+					class="ml-2 text-sm text-center md:text-start mb-4 text-purple-700"
+				>
+					Forgot Password ?
 				</BaseButton>
 			</div>
 			<p v-if="errorMessage" class="text-red-600 text-sm text-center">{{ errorMessage }}</p>
