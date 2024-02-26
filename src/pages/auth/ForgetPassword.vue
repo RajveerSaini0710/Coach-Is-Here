@@ -1,18 +1,18 @@
 <template>
 	<section class="flex justify-center">
-		<BaseCard class="flex flex-col mt-10 gap-4 w-1/2">
-			<h1 class="text-purple-700 font-bold text-xl mt-4">Forgot Password</h1>
+		<BaseCard class="flex flex-col mt-10 gap-4 md:w-1/2">
+			<h1 class="text-purple-700 font-bold text-xl mt-4 text-center md:text-start">Forgot Password</h1>
 			<inputtext class="w-full" v-model.trim="email" :errorMessage="error.email" placeholder="johnDoe123@gmail.com" label="Email" />
 			<div class="flex items-center gap-4 mb-4">
 				<BaseButton
 					customButton
-					class="bg-violet-700 w-fit py-2 px-4 rounded-full font-bold text-white"
+					class="bg-violet-700 w-fit py-2 px-4 rounded-full font-bold text-white text-sm"
 					@click="submitEmail"
 					:disabled="emailSent"
 					>Submit Email</BaseButton
 				>
 				<p
-					class="text-xs md:text-base border-none px-4 rounded-md bg-none text-purple-700 font-medium hover:bg-purple-100 cursor-pointer w-fit py-2"
+					class="text-sm md:text-base border-none px-4 rounded-md bg-none text-purple-700 font-medium hover:bg-purple-100 cursor-pointer w-fit py-2"
 					@click="goToLoginPage"
 				>
 					Login Instead
@@ -68,7 +68,7 @@ export default {
 						this.errorMessage = err
 					})
 			}
-		}, 2000),
+		}, 1000),
 		goToLoginPage() {
 			this.$router.push('/auth')
 		},

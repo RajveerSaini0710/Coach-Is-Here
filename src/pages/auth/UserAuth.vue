@@ -44,13 +44,13 @@
 						formError.confirmPassword
 					}}</InlineMessage>
 				</div>
-				<div class="flex flex-col items-center mb-2 md:flex-row">
+				<div class="flex flex-col items-center mb-2 md:mb-4 md:flex-row">
 					<BaseButton normalButton class="md:mr-4 text-base mb-4 md:mb-0" type="submit" @click="submitData">{{
 						submitButtonCaption
 					}}</BaseButton>
 					<BaseButton
 						customButton
-						class="text-base border-none px-4 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
+						class="text-xs md:text-base border-none px-4 py-2 rounded-md bg-none flex justify-center items-center text-purple-700 font-medium hover:bg-purple-100"
 						@click="switchAuthMode"
 					>
 						{{ switchModeButtonCaption }}
@@ -60,7 +60,7 @@
 					v-if="mode === 'login'"
 					customButton
 					@click="forgetPassword"
-					class="ml-2 text-sm text-center md:text-start mb-4 text-purple-700"
+					class="ml-2 text-sm md:text-base text-center md:text-start mb-4 text-purple-700"
 				>
 					Forgot Password ?
 				</BaseButton>
