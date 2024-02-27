@@ -30,7 +30,7 @@ const coachesModule = {
 				hourlyRate: payload.hourly_rate,
 			}
 			await axios
-				.put(`https://saini-lifters-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + token, coachData)
+				.put(`https://coach-is-here-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + token, coachData)
 				.then((res) => {
 					console.log(res)
 				})
@@ -47,7 +47,7 @@ const coachesModule = {
 				return
 			}
 			await axios
-				.get(`https://saini-lifters-default-rtdb.firebaseio.com/coaches.json`)
+				.get(`https://coach-is-here-default-rtdb.firebaseio.com/coaches.json`)
 				.then((res) => {
 					let data = res.data
 					let coaches = []
