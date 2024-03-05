@@ -22,10 +22,10 @@ const requestModule = {
 			}
 			try {
 				const res = await axios.post(
-					`https://coach-is-here-default-rtdb.firebaseio.com/requests/${payload.coachId}.json`,
+					`https://us-central1-coach-is-here.cloudfunctions.net/api/requests/${payload.coachId}`,
 					newRequest
 				)
-				const Id = res.data.name
+				const Id = res.data._id
 				newRequest.id = Id
 				newRequest.coachId = payload.coachId
 				context.commit('addRequest', newRequest)
@@ -35,21 +35,21 @@ const requestModule = {
 		},
 		async fetchRequest(context) {
 			const coachId = context.rootGetters.userId
-			const token = context.rootGetters.token
+			// const token = context.rootGetters.token
 			await axios
-				.get(`https://coach-is-here-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=${token}`)
+				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/requests/${coachId}`)
 				.then((res) => {
 					let data = res.data
-					let requests = []
-					for (let id in data) {
-						const request = {
-							id: id,
-							message: data[id].message,
-							userEmail: data[id].userEmail,
-							coachId: coachId,
+
+					const request = data.map((data) => {
+						return {
+							id: data._id,
+							message: data.message,
+							userEmail: data.userEmail,
+							coachId: data.coachId,
 						}
-						requests.push(request)
-					}
+					})
+					let requests = [...request]
 					context.commit('setRequest', requests)
 				})
 				.catch((err) => {
