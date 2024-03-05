@@ -21,7 +21,7 @@ const coachesModule = {
 	actions: {
 		async addCoach(context, payload) {
 			const userId = context.rootGetters.userId
-			const token = context.rootGetters.token
+			// const token = context.rootGetters.token
 			const coachData = {
 				firstName: payload.first_name,
 				lastName: payload.last_name,
@@ -30,12 +30,12 @@ const coachesModule = {
 				hourlyRate: payload.hourly_rate,
 			}
 			await axios
-				.put(`https://coach-is-here-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + token, coachData)
+				.post(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches/${userId}`, coachData)
 				.then((res) => {
 					console.log(res)
 				})
 				.catch((err) => {
-					context.commit('setError', err)
+					console.log(err)
 				})
 			context.commit('addCoach', {
 				...coachData,
@@ -47,21 +47,31 @@ const coachesModule = {
 				return
 			}
 			await axios
-				.get(`https://coach-is-here-default-rtdb.firebaseio.com/coaches.json`)
+				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches`)
 				.then((res) => {
 					let data = res.data
-					let coaches = []
-					for (const id in data) {
-						const coach = {
-							id: id,
-							firstName: data[id].firstName,
-							lastName: data[id].lastName,
-							areas: data[id].areas,
-							description: data[id].description,
-							hourlyRate: data[id].hourlyRate,
+					const coach = data.map((data) => {
+						return {
+							id: data._id,
+							firstName: data.firstName,
+							lastName: data.lastName,
+							areas: data.areas,
+							description: data.description,
+							hourlyRate: data.hourlyRate,
 						}
-						coaches.push(coach)
-					}
+					})
+					let coaches = [...coach]
+					// for (const id in data) {
+					// 	const coach = {
+					// 		id: id,
+					// 		firstName: data[id].firstName,
+					// 		lastName: data[id].lastName,
+					// 		areas: data[id].areas,
+					// 		description: data[id].description,
+					// 		hourlyRate: data[id].hourlyRate,
+					// 	}
+					// 	coaches.push(coach)
+					// }
 					context.commit('setCoach', coaches)
 					context.commit('setLastFetchTimeStamp')
 				})
