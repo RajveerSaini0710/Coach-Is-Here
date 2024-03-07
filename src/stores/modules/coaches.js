@@ -57,7 +57,10 @@ const coachesModule = {
 						return {
 							id: data._id,
 							firstName: data.firstName,
+							middleName: data.middleName,
 							lastName: data.lastName,
+							phoneNumber: data.phoneNumber,
+							emailId: data.emailId,
 							areas: data.areas,
 							description: data.description,
 							hourlyRate: data.hourlyRate,
