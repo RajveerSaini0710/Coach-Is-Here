@@ -24,7 +24,10 @@ const coachesModule = {
 			// const token = context.rootGetters.token
 			const coachData = {
 				firstName: payload.first_name,
+				middleName: payload.middle_name,
 				lastName: payload.last_name,
+				phoneNumber: payload.phone_number,
+				emailId: payload.email_id,
 				areas: payload.selected_area.map((area) => area.toLowerCase()),
 				description: payload.discription,
 				hourlyRate: payload.hourly_rate,

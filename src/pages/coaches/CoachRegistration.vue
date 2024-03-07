@@ -38,7 +38,7 @@
 					v-model.number="data.phoneNumber"
 					size="small"
 					placeholder="9999999999"
-					class="md:mr-12 w-full md:w-auto"
+					class="md:mr-10 w-full md:w-auto"
 					:errorMessage="formError.phoneNumber"
 				/>
 				<FormInput
@@ -48,6 +48,14 @@
 					size="small"
 					placeholder="25"
 					:errorMessage="formError.hourlyRate"
+					class="md:mr-10 w-full md:w-auto"
+				/>
+				<FormInput
+					label="Email ID"
+					v-model.trim="data.emailId"
+					size="small"
+					placeholder="JohnDoe@gmail.com"
+					:errorMessage="formError.emailId"
 					class="w-full md:w-auto"
 				/>
 			</div>
@@ -128,6 +136,7 @@ export default {
 				selectedArea: '',
 				dob: '',
 				discription: '',
+				emailId: '',
 			},
 			expertise: [
 				{ id: 'front', name: 'Frontend' },
@@ -139,6 +148,7 @@ export default {
 				firstName: null,
 				middleName: null,
 				lastName: null,
+				emailId: null,
 				phoneNumber: null,
 				hourlyRate: null,
 				discription: null,
@@ -154,6 +164,7 @@ export default {
 				firstName: '',
 				lastName: '',
 				phoneNumber: '',
+				emailId: '',
 				hourlyRate: '',
 				selectedArea: '',
 				dob: '',
@@ -169,6 +180,10 @@ export default {
 			}
 			if (!this.data.phoneNumber) {
 				this.formError.phoneNumber = 'Please Enter The Phone Number'
+				this.isFormDataValid = false
+			}
+			if (!this.data.emailId || !this.data.emailId.includes('@')) {
+				this.formError.emailId = 'Please enter the valid emailId'
 				this.isFormDataValid = false
 			}
 			if (!this.data.hourlyRate) {
@@ -198,6 +213,7 @@ export default {
 					middle_name: this.data.middleName,
 					last_name: this.data.lastName,
 					phone_number: this.data.phoneNumber,
+					email_id: this.data.emailId,
 					hourly_rate: this.data.hourlyRate,
 					discription: this.data.discription,
 					selected_area: this.data.selectedArea,
