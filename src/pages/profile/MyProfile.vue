@@ -19,10 +19,13 @@
 				<div class="flex-grow">
 					<h1 class="md:text-4xl font-bold text-violet-700 protest-riot-regular">{{ fullName }}</h1>
 					<p class="md:font-medium text-xs text-violet-500 md:mb-3 mb-1">{{ specialities }} Developer</p>
-					<div v-if="screenWidth > 500" class="font-light text-xs text-violet-500 flex flex-wrap">
-						<p class="mr-6 mb-1 cursor-pointer"><i class="pi pi-google"> webdevloper0710@gmail.com</i></p>
-						<p class="mr-6 mb-1"><i class="pi pi-phone"> 8928333827</i></p>
-						<p class="mr-6 mb-1"><i class="pi pi-home"> Kharghar</i></p>
+					<div v-if="screenWidth > 500" class="font-light text-xs text-violet-500 flex flex-wrap items-center">
+						<a :href="emailLink" class="mr-6 mb-1 cursor-pointer text-base font-medium">
+							<i class="pi pi-google"> </i> {{ this.myData?.emailId }}
+						</a>
+						<a :href="phoneNumber" class="mr-6 mb-1 text-base font-medium"
+							><i class="pi pi-phone"> </i> {{ this.myData?.phoneNumber }}</a
+						>
 					</div>
 				</div>
 
@@ -31,18 +34,15 @@
 				</div>
 			</div>
 			<div v-if="screenWidth < 500" class="font-light text-xs text-violet-500 flex flex-wrap mt-2 justify-center gap-6">
-				<p class="cursor-pointer"><i class="pi pi-google text-xs"> webdevloper0710</i></p>
-				<p><i class="pi pi-phone text-xs"> 8928333827</i></p>
-				<p><i class="pi pi-home text-xs"> Kharghar</i></p>
+				<a :href="emailLink" class="cursor-pointer"><i class="pi pi-google text-xs"> </i> {{ this.myData?.emailId }}</a>
+				<a :href="phoneNumber"><i class="pi pi-phone text-xs"> </i> {{ this.myData?.phoneNumber }}</a>
 			</div>
 		</div>
 		<div class="flex flex-col md:flex-row items-center md:justify-evenly md:w-full">
 			<div class="border p-4 rounded-lg md:w-1/4 w-11/12 mb-4 md:mb-0">
 				<p class="font-bold md:text-lg text-sm text-purple-700 mb-2">Description :</p>
 				<p class="md:text-sm text-xs">
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatum facere, ex numquam sapiente, excepturi
-					voluptatibus optio commodi consequuntur necessitatibus sint dicta magnam reiciendis recusandae eius minus, qui ab
-					assumenda.
+					{{ this.myData?.description }}
 				</p>
 			</div>
 			<div class="border p-4 rounded-lg h-full md:w-2/3 w-11/12 mb-4 md:mb-0">
@@ -60,6 +60,7 @@
 			</div>
 		</div>
 	</section>
+	{{ data }}
 </template>
 
 <script>
@@ -68,10 +69,16 @@ import 'primeicons/primeicons.css'
 export default {
 	computed: {
 		fullName() {
-			return `${this.myData?.firstName}  ${this.myData?.lastName}`
+			return `${this.myData?.firstName} ${this.myData?.middleName} ${this.myData?.lastName}`
 		},
 		specialities() {
 			return this.myData?.areas.join(' & ').toUpperCase()
+		},
+		emailLink() {
+			return 'mailto:' + this.myData?.emailId
+		},
+		phoneNumber() {
+			return 'tel:' + this.myData?.phoneNumber
 		},
 	},
 	data() {
@@ -120,6 +127,7 @@ export default {
 		async loadCoaches(refresh = false) {
 			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh })
 			this.myData = this.$store.getters.profileData[0]
+			console.log(this.myData)
 		},
 	},
 }
