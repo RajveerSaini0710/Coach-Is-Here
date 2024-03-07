@@ -2,6 +2,7 @@
 	<section class="flex justify-center">
 		<BaseCard class="flex flex-col items-center md:block">
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Register As A Coach :</h1>
+			<!-- <input type="file" @change="handleImageUpload" accept="image/*" /> -->
 			<div class="w-11/12 flex items-center justify-center md:justify-normal mb-4 flex-wrap md:ml-4">
 				<FormInput
 					@keypress="isLetter($event)"
@@ -38,7 +39,7 @@
 					v-model.number="data.phoneNumber"
 					size="small"
 					placeholder="9999999999"
-					class="md:mr-12 w-full md:w-auto"
+					class="md:mr-10 w-full md:w-auto"
 					:errorMessage="formError.phoneNumber"
 				/>
 				<FormInput
@@ -48,6 +49,14 @@
 					size="small"
 					placeholder="25"
 					:errorMessage="formError.hourlyRate"
+					class="md:mr-10 w-full md:w-auto"
+				/>
+				<FormInput
+					label="Email ID"
+					v-model="data.emailId"
+					size="small"
+					placeholder="johndoe@gmail.com"
+					:errorMessage="formError.emailId"
 					class="w-full md:w-auto"
 				/>
 			</div>
@@ -128,6 +137,7 @@ export default {
 				selectedArea: '',
 				dob: '',
 				discription: '',
+				emailId: '',
 			},
 			expertise: [
 				{ id: 'front', name: 'Frontend' },
@@ -144,6 +154,8 @@ export default {
 				discription: null,
 				selectedArea: [],
 				dob: null,
+				// image: null,
+				emailId: null,
 			},
 		}
 	},
@@ -158,6 +170,7 @@ export default {
 				selectedArea: '',
 				dob: '',
 				discription: '',
+				emailId: '',
 			}
 			if (!this.data.firstName) {
 				this.formError.firstName = 'Please Enter The First Name'
@@ -169,6 +182,10 @@ export default {
 			}
 			if (!this.data.phoneNumber) {
 				this.formError.phoneNumber = 'Please Enter The Phone Number'
+				this.isFormDataValid = false
+			}
+			if (!this.data.emailId || !this.data.emailId.includes('@')) {
+				this.formError.phoneNumber = 'Please Enter email id correctly'
 				this.isFormDataValid = false
 			}
 			if (!this.data.hourlyRate) {
@@ -198,10 +215,12 @@ export default {
 					middle_name: this.data.middleName,
 					last_name: this.data.lastName,
 					phone_number: this.data.phoneNumber,
+					email_id: this.data.emailId,
 					hourly_rate: this.data.hourlyRate,
 					discription: this.data.discription,
 					selected_area: this.data.selectedArea,
 					dob: this.data.dob,
+					// image: this.data.image,
 				}
 				this.$store.dispatch('addCoach', payload)
 				this.$router.push('/coaches')
@@ -215,7 +234,10 @@ export default {
 				// 	})
 			}
 		},
-
+		// handleImageUpload(event) {
+		// 	const file = event.target.files[0]
+		// 	this.data.image = file
+		// },
 		isLetter(e) {
 			let char = String.fromCharCode(e.keyCode) // Get the character
 			if (/^[A-Za-z]+$/.test(char))

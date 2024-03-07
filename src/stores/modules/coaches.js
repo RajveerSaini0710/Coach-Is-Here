@@ -24,10 +24,14 @@ const coachesModule = {
 			// const token = context.rootGetters.token
 			const coachData = {
 				firstName: payload.first_name,
+				middleName: payload.middle_name,
 				lastName: payload.last_name,
 				areas: payload.selected_area.map((area) => area.toLowerCase()),
 				description: payload.discription,
 				hourlyRate: payload.hourly_rate,
+				phoneNumber: payload.phone_number,
+				emailId: payload.email_id,
+				// image: payload.image,
 			}
 			await axios
 				.post(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches/${userId}`, coachData)
