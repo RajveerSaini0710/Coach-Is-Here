@@ -33,8 +33,18 @@ const coachesModule = {
 				emailId: payload.email_id,
 				// image: payload.image,
 			}
+			const formData = new FormData()
+			formData.append('image', payload.image)
+
+			for (const key in coachData) {
+				formData.append(key, coachData[key]) // Append other form data fields
+			}
 			await axios
-				.post(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches/${userId}`, coachData)
+				.post(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches/${userId}`, formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+				})
 				.then((res) => {
 					console.log(res)
 				})

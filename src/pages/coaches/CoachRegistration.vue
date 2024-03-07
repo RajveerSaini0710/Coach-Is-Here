@@ -2,7 +2,7 @@
 	<section class="flex justify-center">
 		<BaseCard class="flex flex-col items-center md:block">
 			<h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Register As A Coach :</h1>
-			<!-- <input type="file" @change="handleImageUpload" accept="image/*" /> -->
+			<input type="file" @change="handleImageUpload" accept="image/*" />
 			<div class="w-11/12 flex items-center justify-center md:justify-normal mb-4 flex-wrap md:ml-4">
 				<FormInput
 					@keypress="isLetter($event)"
@@ -154,7 +154,7 @@ export default {
 				discription: null,
 				selectedArea: [],
 				dob: null,
-				// image: null,
+				image: null,
 				emailId: null,
 			},
 		}
@@ -220,7 +220,7 @@ export default {
 					discription: this.data.discription,
 					selected_area: this.data.selectedArea,
 					dob: this.data.dob,
-					// image: this.data.image,
+					image: this.data.image,
 				}
 				this.$store.dispatch('addCoach', payload)
 				this.$router.push('/coaches')
@@ -234,10 +234,10 @@ export default {
 				// 	})
 			}
 		},
-		// handleImageUpload(event) {
-		// 	const file = event.target.files[0]
-		// 	this.data.image = file
-		// },
+		handleImageUpload(event) {
+			const file = event.target.files[0]
+			this.data.image = file
+		},
 		isLetter(e) {
 			let char = String.fromCharCode(e.keyCode) // Get the character
 			if (/^[A-Za-z]+$/.test(char))
