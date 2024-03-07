@@ -58,10 +58,13 @@ const coachesModule = {
 						return {
 							id: data._id,
 							firstName: data.firstName,
+							middleName: data.middleName,
 							lastName: data.lastName,
 							areas: data.areas,
 							description: data.description,
 							hourlyRate: data.hourlyRate,
+							phoneNumber: data.phoneNumber,
+							emailId: data.emailId,
 						}
 					})
 					let coaches = [...coach]
@@ -85,8 +88,9 @@ const coachesModule = {
 		},
 	},
 	getters: {
-		coaches(state) {
-			return state.coaches
+		coaches(state, _getters, _rootState, rootGetters) {
+			const userId = rootGetters.userId
+			return state.coaches.filter((coaches) => coaches.id !== userId)
 		},
 		profileData(state, _getters, _rootState, rootGetters) {
 			const userId = rootGetters.userId
@@ -97,8 +101,8 @@ const coachesModule = {
 		hasCoaches(state) {
 			return state.coaches && state.coaches.length > 0
 		},
-		isCoach(_state, getters, _rootState, rootGetters) {
-			const coaches = getters.coaches
+		isCoach(state, _getters, _rootState, rootGetters) {
+			const coaches = state.coaches
 			const userId = rootGetters.userId
 			return coaches.some((coach) => coach.id === userId)
 		},

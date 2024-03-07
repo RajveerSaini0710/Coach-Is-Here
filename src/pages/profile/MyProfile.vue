@@ -20,9 +20,12 @@
 					<h1 class="md:text-4xl font-bold text-violet-700 protest-riot-regular">{{ fullName }}</h1>
 					<p class="md:font-medium text-xs text-violet-500 md:mb-3 mb-1">{{ specialities }} Developer</p>
 					<div v-if="screenWidth > 500" class="font-light text-xs text-violet-500 flex flex-wrap">
-						<p class="mr-6 mb-1 cursor-pointer"><i class="pi pi-google"> webdevloper0710@gmail.com</i></p>
-						<p class="mr-6 mb-1"><i class="pi pi-phone"> 8928333827</i></p>
-						<p class="mr-6 mb-1"><i class="pi pi-home"> Kharghar</i></p>
+						<a v-if="myData?.emailId" :href="emailLink" class="mr-6 mb-1 cursor-pointer text-base font-medium"
+							><i class="pi pi-google"> </i> {{ myData?.emailId }}</a
+						>
+						<a v-if="myData?.phoneNumber" :href="phoneLink" class="mr-6 mb-1 text-base font-medium"
+							><i class="pi pi-phone"> </i> {{ myData?.phoneNumber }}</a
+						>
 					</div>
 				</div>
 
@@ -31,30 +34,44 @@
 				</div>
 			</div>
 			<div v-if="screenWidth < 500" class="font-light text-xs text-violet-500 flex flex-wrap mt-2 justify-center gap-6">
-				<p class="cursor-pointer"><i class="pi pi-google text-xs"> webdevloper0710</i></p>
-				<p><i class="pi pi-phone text-xs"> 8928333827</i></p>
-				<p><i class="pi pi-home text-xs"> Kharghar</i></p>
+				<a v-if="myData?.emailId" :href="emailLink" class="mr-6 mb-1 cursor-pointer text-xs font-medium"
+					><i class="pi pi-google"> </i> {{ myData?.emailId }}</a
+				>
+				<a v-if="myData?.phoneNumber" :href="phoneLink" class="mr-6 mb-1 text-xs font-medium"
+					><i class="pi pi-phone"> </i> {{ myData?.phoneNumber }}</a
+				>
 			</div>
 		</div>
-		<div class="flex flex-col md:flex-row items-center md:justify-evenly md:w-full">
+		<div class="flex flex-col md:flex-row items-center md:items-start md:justify-evenly md:w-full">
 			<div class="border p-4 rounded-lg md:w-1/4 w-11/12 mb-4 md:mb-0">
 				<p class="font-bold md:text-lg text-sm text-purple-700 mb-2">Description :</p>
 				<p class="md:text-sm text-xs">
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatum facere, ex numquam sapiente, excepturi
-					voluptatibus optio commodi consequuntur necessitatibus sint dicta magnam reiciendis recusandae eius minus, qui ab
-					assumenda.
+					{{ myData?.description ? myData?.description : '...Register as a coach' }}
 				</p>
 			</div>
 			<div class="border p-4 rounded-lg h-full md:w-2/3 w-11/12 mb-4 md:mb-0">
 				<p class="font-bold md:text-lg text-sm text-purple-700 mb-6">All Registered Coaches :</p>
 				<div class="flex gap-10 flex-wrap justify-evenly">
-					<div v-for="image in images" :key="image.id" class="flex flex-col items-center">
+					<!-- <div v-for="image in images" :key="image.id" class="flex flex-col items-center">
 						<img
 							:src="image.src"
 							alt="profile pic"
 							class="md:w-20 md:h-20 w-14 h-14 object-cover rounded-full cursor-pointer"
 						/>
 						<p class="md:text-sm text-xs font-medium mt-4">Rajveer Singh</p>
+					</div> -->
+					<div v-for="coach in allCoaches" :key="coach.id" class="flex flex-col items-center">
+						<img
+							v-if="coach.image"
+							:src="getImageUrl(coach.image)"
+							alt="profile pic"
+							class="md:w-20 md:h-20 w-14 h-14 object-cover rounded-full cursor-pointer mb-2"
+						/>
+						<i
+							class="pi pi-user text-center border-black border-2 w-12 h-12 pt-1 object-cover rounded-full cursor-pointer"
+							style="font-size: 2rem"
+						></i>
+						<p>{{ `${coach.firstName} ${coach.lastName} ` }}</p>
 					</div>
 				</div>
 			</div>
@@ -68,15 +85,25 @@ import 'primeicons/primeicons.css'
 export default {
 	computed: {
 		fullName() {
-			return `${this.myData?.firstName}  ${this.myData?.lastName}`
+			return this.myData?.firstName ? `${this.myData?.firstName} ${this.myData?.middleName} ${this.myData?.lastName}` : 'Name'
 		},
 		specialities() {
-			return this.myData?.areas.join(' & ').toUpperCase()
+			return this.myData?.areas ? this.myData?.areas.join(' & ').toUpperCase() : '---'
+		},
+		emailLink() {
+			return `mailto:${this.myData?.emailId}`
+		},
+		phoneLink() {
+			return `tel:${this.myData?.phoneNumber}`
+		},
+		defaultImageUrl() {
+			return 'https://firebasestorage.googleapis.com/v0/b/saini-lifters.appspot.com/o/folder%2Fwp4327153-macbook-4k-wallpapers.jpg?alt=media&token=95d5a8c7-0a03-4d4b-b7d3-b302fa6a2504'
 		},
 	},
 	data() {
 		return {
 			myData: null,
+			allCoaches: null,
 			images: [
 				{
 					id: 1,
@@ -120,6 +147,10 @@ export default {
 		async loadCoaches(refresh = false) {
 			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh })
 			this.myData = this.$store.getters.profileData[0]
+			this.allCoaches = this.$store.getters.coaches.slice(0, 5)
+		},
+		getImageUrl(imageUrl) {
+			return imageUrl ? imageUrl : this.defaultImageUrl
 		},
 	},
 }
