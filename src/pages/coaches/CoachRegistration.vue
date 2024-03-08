@@ -223,7 +223,7 @@ export default {
 					image: this.data.image,
 				}
 				this.$store.dispatch('addCoach', payload)
-				this.$router.push('/coaches')
+				// this.$router.push('/coaches')
 				// axios
 				// 	.post('https://saini-lifters-default-rtdb.firebaseio.com/coach-form.json', payload)
 				// 	.then((res) => {
