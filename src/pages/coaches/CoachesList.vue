@@ -20,7 +20,8 @@
 					<CoachCount
 						v-if="screenWidth > 500"
 						class="flex-grow ml-2"
-						:coachCount="filteredCoaches.length"
+						:remainingCoachesCount="totalRemainingCoachesData"
+						:coachCount="totalCoachesData"
 						:coachActiveFilter="activeFilter"
 					/>
 					<BaseButton v-if="isLoggedIn && !isCoach && !isDataLoaded" link to="/register">Register As Coach</BaseButton>
@@ -28,7 +29,8 @@
 				<CoachCount
 					v-if="screenWidth < 500"
 					class="mt-2 ml-2"
-					:coachCount="filteredCoaches.length"
+					:remainingCoachesCount="totalRemainingCoachesData"
+					:coachCount="totalCoachesData"
 					:coachActiveFilter="activeFilter"
 				/>
 
@@ -47,6 +49,7 @@
 					/>
 				</ul>
 				<h3 v-else class="mt-6 mb-2 indent-1 text-red-500 text-sm">No Coaches Found</h3>
+				<Paginator :rows="5" :totalRecords="totalCoachesData" @page="handlePageChange" class="my-2"></Paginator>
 			</BaseCard>
 		</section>
 	</div>
@@ -56,12 +59,14 @@
 import CoachCount from '@/components/coaches/CoachCount.vue'
 import CoachFilter from '@/components/coaches/CoachFilter.vue'
 import CoachItem from '@/components/coaches/CoachItem.vue'
+import Paginator from 'primevue/paginator'
 
 export default {
 	components: {
 		CoachItem,
 		CoachFilter,
 		CoachCount,
+		Paginator,
 	},
 
 	computed: {
@@ -94,6 +99,9 @@ export default {
 				Career: true,
 			},
 			screenWidth: 0,
+			currentPage: null,
+			totalCoachesData: null,
+			totalRemainingCoachesData: null,
 		}
 	},
 	mounted() {
@@ -117,11 +125,23 @@ export default {
 		},
 		async loadCoaches(refresh = false) {
 			this.isDataLoaded = true
-			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh })
+			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh, page: this.currentPage })
 			this.isDataLoaded = false
+			this.coachesCount()
+			this.remainingCoachesCount()
 		},
 		updateScreenSize() {
 			this.screenWidth = window.innerWidth
+		},
+		coachesCount() {
+			this.totalCoachesData = this.$store.getters.coachCountData.totalCoachesData
+		},
+		remainingCoachesCount() {
+			this.totalRemainingCoachesData = this.$store.getters.coachCountData.totalRemainingCoachesData
+		},
+		handlePageChange(event) {
+			this.currentPage = event.page + 1
+			this.loadCoaches()
 		},
 	},
 }

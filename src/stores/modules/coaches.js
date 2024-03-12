@@ -5,6 +5,9 @@ const coachesModule = {
 		return {
 			coaches: [],
 			lastFetch: null,
+			currentPage: 1,
+			totalCoachesData: null,
+			totalRemainingCoachesData: null,
 		}
 	},
 	mutations: {
@@ -16,6 +19,15 @@ const coachesModule = {
 		},
 		setLastFetchTimeStamp(state) {
 			state.lastFetch = new Date().getTime()
+		},
+		setCurrentPage(state, payload) {
+			state.currentPage = payload
+		},
+		setTotalCoachesData(state, payload) {
+			state.totalCoachesData = payload
+		},
+		setTotalRemainingCoachesData(state, payload) {
+			state.totalRemainingCoachesData = payload
 		},
 	},
 	actions: {
@@ -58,14 +70,17 @@ const coachesModule = {
 			})
 		},
 		async loadCoaches(context, payload) {
-			if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+			if (!payload.forceRefresh && !context.getters.shouldUpdate && !payload.page) {
 				return
 			}
+			let page = payload.page || 1
 			await axios
-				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches`)
+				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches`, { params: { page } })
 				.then((res) => {
 					let data = res.data
-					const coach = data.map((data) => {
+					let coachesCount = data.totalData
+					let totalRemainingCoachesData = data.totalRemainingCoachesData
+					const coach = data.coach.map((data) => {
 						return {
 							id: data._id,
 							firstName: data.firstName,
@@ -92,6 +107,9 @@ const coachesModule = {
 					// }
 					context.commit('setCoach', coaches)
 					context.commit('setLastFetchTimeStamp')
+					context.commit('setCurrentPage', page)
+					context.commit('setTotalCoachesData', coachesCount)
+					context.commit('setTotalRemainingCoachesData', totalRemainingCoachesData)
 				})
 				.catch((err) => {
 					console.log(err)
@@ -124,6 +142,9 @@ const coachesModule = {
 			}
 			const currentTimeStamp = new Date().getTime()
 			return (currentTimeStamp - lastFetch) / 1000 > 60
+		},
+		coachCountData(state) {
+			return { totalCoachesData: state.totalCoachesData, totalRemainingCoachesData: state.totalRemainingCoachesData }
 		},
 	},
 }
