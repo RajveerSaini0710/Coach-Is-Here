@@ -1,9 +1,4 @@
-<template>
-	<section class="flex flex-col items-start">
-		<p class="text-purple-700 text-xs md:text-base font-medium">Total Coaches : {{ remainingCoachesCount }} out of {{ coachCount }}</p>
-		<p class="text-purple-700 text-xs md:text-base font-medium">Specialities : {{ coachSpecialties }}</p>
-	</section>
-</template>
+<template></template>
 
 <script>
 export default {
