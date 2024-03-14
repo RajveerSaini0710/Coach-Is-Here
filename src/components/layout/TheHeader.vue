@@ -24,7 +24,7 @@
 						</div>
 						<div class="mt-12 ml-6">
 							<ul class="flex flex-col items-start">
-								<li v-if="isLoggedIn" class="mt-4" @click="toggleMenu">
+								<li v-if="isCoach" class="mt-4" @click="toggleMenu">
 									<router-link class="text-white text-xl font-bold hover:text-purple-200" to="/profile">
 										My Profile
 									</router-link>
@@ -78,7 +78,7 @@
 							Login
 						</router-link>
 					</li>
-					<li v-if="isLoggedIn" class="m-1">
+					<li v-if="isCoach" class="m-1">
 						<router-link
 							to="/profile"
 							class="text-pink-300 inline-block border border-transparent hover:border-pink-300 active:border-pink-300 focus:border-pink-300 px-2 py-3 text-xs md:text-xl md:px-3 md:py-3"
@@ -105,6 +105,9 @@ export default {
 	computed: {
 		isLoggedIn() {
 			return this.$store.getters.isAuthenticated
+		},
+		isCoach() {
+			return this.$store.getters.isCoach
 		},
 	},
 	data() {

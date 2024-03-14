@@ -159,7 +159,7 @@ const coachesModule = {
 			return state.coaches && state.coaches.length > 0
 		},
 		isCoach(state, _getters, _rootState, rootGetters) {
-			const coaches = state.coaches
+			const coaches = state.allCoaches
 			const userId = rootGetters.userId
 			return coaches.some((coach) => coach.id === userId)
 		},
