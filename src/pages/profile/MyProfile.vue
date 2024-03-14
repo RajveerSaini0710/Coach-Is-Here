@@ -52,14 +52,14 @@
 			<div class="border p-4 rounded-lg h-full md:w-2/3 w-11/12 mb-4 md:mb-0">
 				<p class="font-bold md:text-lg text-sm text-purple-700 mb-6">All Registered Coaches :</p>
 				<div class="flex gap-10 flex-wrap justify-evenly">
-					<div v-for="image in images" :key="image.id" class="flex flex-col items-center">
+					<!-- <div v-for="image in images" :key="image.id" class="flex flex-col items-center">
 						<img
 							:src="image.src"
 							alt="profile pic"
 							class="md:w-20 md:h-20 w-14 h-14 object-cover rounded-full cursor-pointer"
 						/>
 						<p class="md:text-sm text-xs font-medium mt-4">Rajveer Singh</p>
-					</div>
+					</div> -->
 					<div v-for="coach in allCoaches" :key="coach.id" class="flex flex-col items-center">
 						<img
 							v-if="coach.image"
