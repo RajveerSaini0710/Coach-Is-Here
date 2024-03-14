@@ -146,8 +146,10 @@ export default {
 		},
 		async loadCoaches() {
 			await this.$store.dispatch('loadAllCoaches')
+			await this.$store.dispatch('loadCoaches', { forceRefresh: false })
 			this.myData = this.$store.getters.profileData[0]
-			this.allCoaches = this.$store.getters.coaches.slice(0, 5)
+			console.log(this.$store.getters.profileData, 'hello')
+			this.allCoaches = this.$store.getters.coaches
 		},
 		getImageUrl(imageUrl) {
 			return imageUrl ? imageUrl : this.defaultImageUrl
