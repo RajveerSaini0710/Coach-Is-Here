@@ -4,6 +4,7 @@ const coachesModule = {
 	state() {
 		return {
 			coaches: [],
+			allCoaches: [],
 			lastFetch: null,
 			currentPage: 1,
 			totalCoachesData: null,
@@ -28,6 +29,9 @@ const coachesModule = {
 		},
 		setTotalRemainingCoachesData(state, payload) {
 			state.totalRemainingCoachesData = payload
+		},
+		setAllCoaches(state, payload) {
+			state.allCoaches = payload
 		},
 	},
 	actions: {
@@ -115,6 +119,30 @@ const coachesModule = {
 					console.log(err)
 				})
 		},
+		async loadAllCoaches(context) {
+			await axios
+				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches/allCoaches`)
+				.then((res) => {
+					let coach = res.data.data.map((data) => {
+						return {
+							id: data._id,
+							firstName: data.firstName,
+							middleName: data.middleName,
+							lastName: data.lastName,
+							areas: data.areas,
+							description: data.description,
+							hourlyRate: data.hourlyRate,
+							phoneNumber: data.phoneNumber,
+							emailId: data.emailId,
+						}
+					})
+					let allCoaches = [...coach]
+					context.commit('setAllCoaches', allCoaches)
+				})
+				.catch((err) => {
+					console.log(err)
+				})
+		},
 	},
 	getters: {
 		coaches(state, _getters, _rootState, rootGetters) {
@@ -123,7 +151,7 @@ const coachesModule = {
 		},
 		profileData(state, _getters, _rootState, rootGetters) {
 			const userId = rootGetters.userId
-			return state.coaches.filter((coach) => {
+			return state.allCoaches.filter((coach) => {
 				return coach.id === userId
 			})
 		},
