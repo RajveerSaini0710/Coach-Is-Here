@@ -25,7 +25,7 @@ export default {
 				{ id: 'back', name: 'Backend' },
 				{ id: 'career', name: 'Career' },
 			],
-			filters: ['Frontend', 'Backend', 'Career'],
+			filters: [],
 		}
 	},
 	methods: {

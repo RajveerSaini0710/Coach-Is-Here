@@ -7,6 +7,7 @@ const coachesModule = {
 			allCoaches: [],
 			lastFetch: null,
 			currentPage: 1,
+			areasFilter: [],
 			totalCoachesData: null,
 			totalRemainingCoachesData: null,
 		}
@@ -32,6 +33,9 @@ const coachesModule = {
 		},
 		setAllCoaches(state, payload) {
 			state.allCoaches = payload
+		},
+		setAreasFilter(state, payload) {
+			state.areasFilter = payload
 		},
 	},
 	actions: {
@@ -78,11 +82,11 @@ const coachesModule = {
 				return
 			}
 			let page = payload.page || 1
+			let areas = payload.areas
 			await axios
-				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches`, { params: { page } })
+				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches`, { params: { areas, page } })
 				.then((res) => {
 					let data = res.data
-					let coachesCount = data.totalData
 					let totalRemainingCoachesData = data.totalRemainingCoachesData
 					const coach = data.coach.map((data) => {
 						return {
@@ -112,7 +116,7 @@ const coachesModule = {
 					context.commit('setCoach', coaches)
 					context.commit('setLastFetchTimeStamp')
 					context.commit('setCurrentPage', page)
-					context.commit('setTotalCoachesData', coachesCount)
+					context.commit('setAreasFilter', areas)
 					context.commit('setTotalRemainingCoachesData', totalRemainingCoachesData)
 				})
 				.catch((err) => {
@@ -120,9 +124,11 @@ const coachesModule = {
 				})
 		},
 		async loadAllCoaches(context) {
+			let areas = context.state.areasFilter
 			await axios
-				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches/allCoaches`)
+				.get(`https://us-central1-coach-is-here.cloudfunctions.net/api/coaches/allCoaches`, { params: { areas } })
 				.then((res) => {
+					let coachesCount = res.data.totalCoachesData
 					let coach = res.data.data.map((data) => {
 						return {
 							id: data._id,
@@ -137,6 +143,7 @@ const coachesModule = {
 						}
 					})
 					let allCoaches = [...coach]
+					context.commit('setTotalCoachesData', coachesCount)
 					context.commit('setAllCoaches', allCoaches)
 				})
 				.catch((err) => {

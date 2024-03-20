@@ -74,14 +74,14 @@ export default {
 			return this.$store.getters.isAuthenticated
 		},
 		filteredCoaches() {
-			const coaches = this.$store.getters.coaches
-			return coaches.filter((coach) => {
-				return (
-					(this.activeFilter.Frontend && coach.areas.includes('frontend')) ||
-					(this.activeFilter.Backend && coach.areas.includes('backend')) ||
-					(this.activeFilter.Career && coach.areas.includes('career'))
-				)
-			})
+			return this.$store.getters.coaches
+			// return coaches.filter((coach) => {
+			// 	return (
+			// 		(this.activeFilter.Frontend && coach.areas.includes('frontend')) ||
+			// 		(this.activeFilter.Backend && coach.areas.includes('backend')) ||
+			// 		(this.activeFilter.Career && coach.areas.includes('career'))
+			// 	)
+			// })
 		},
 		hasCoaches() {
 			return !this.isDataLoaded && this.$store.getters.hasCoaches
@@ -102,6 +102,7 @@ export default {
 			currentPage: null,
 			totalCoachesData: null,
 			totalRemainingCoachesData: null,
+			selectedArea: [],
 		}
 	},
 	mounted() {
@@ -115,17 +116,30 @@ export default {
 		this.loadCoaches()
 	},
 	methods: {
-		setFilter(updateFilter) {
+		async setFilter(updateFilter) {
 			const newFilter = {
 				Frontend: updateFilter.includes('Frontend'),
 				Backend: updateFilter.includes('Backend'),
 				Career: updateFilter.includes('Career'),
 			}
+			this.selectedArea = []
+
+			if (newFilter.Frontend) {
+				this.selectedArea.push('frontend')
+			}
+			if (newFilter.Backend) {
+				this.selectedArea.push('backend')
+			}
+			if (newFilter.Career) {
+				this.selectedArea.push('career')
+			}
 			this.activeFilter = newFilter
+			this.loadCoaches(true)
 		},
 		async loadCoaches(refresh = false) {
 			this.isDataLoaded = true
-			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh, page: this.currentPage })
+			await this.$store.dispatch('loadCoaches', { forceRefresh: refresh, page: this.currentPage, areas: this.selectedArea })
+			await this.$store.dispatch('loadAllCoaches')
 			this.isDataLoaded = false
 			this.coachesCount()
 			this.remainingCoachesCount()
